@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mirchandani.schedulingsystem.AddAppointmentController">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="700.0">
+         <children>
+            <HBox prefHeight="115.0" prefWidth="500.0">
+               <children>
+                  <Label prefHeight="58.0" prefWidth="211.0" text="Add Appointment">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                     <padding>
+                        <Insets left="30.0" top="30.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="276.0" prefWidth="700.0">
+               <children>
+                  <GridPane prefHeight="276.0" prefWidth="593.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="98.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="152.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="117.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="117.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="110.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <HBox.margin>
+                        <Insets left="60.0" />
+                     </HBox.margin>
+                     <children>
+                        <Label text="Description:" GridPane.rowIndex="1" />
+                        <Label text="Location:" GridPane.rowIndex="2" />
+                        <Label text="User ID:" GridPane.rowIndex="4" />
+                        <Label text="Contact:" GridPane.rowIndex="5" />
+                        <Label text="Start Time:" GridPane.rowIndex="7" />
+                        <Label text="End Time:" GridPane.rowIndex="8" />
+                        <TextField fx:id="apptDescriptionTxt" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="apptUserIDCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="apptContactCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Title:" />
+                        <TextField fx:id="apptTitleTxt" editable="false" GridPane.columnIndex="1" />
+                        <Label text="Customer ID:" GridPane.rowIndex="3" />
+                        <Label text="Type:" GridPane.rowIndex="6" />
+                        <DatePicker fx:id="apptStartTimeDt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <DatePicker fx:id="apptEndTimeDt" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="apptStartTimeHHCmb" prefHeight="25.0" prefWidth="75.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                        <Label text="HH:" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <ComboBox fx:id="apptStartTimeMMCmb" prefWidth="75.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="apptStartTimeSSCmb" prefWidth="75.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="apptEndTimeHHCmb" prefWidth="75.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="apptEndTimeMMCmb" prefWidth="75.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="apptEndTimeSSCmb" prefWidth="75.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                        <Label text="HH:" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="MM:" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="SS:" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="MM:" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="SS:" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <ComboBox fx:id="apptTypeCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="apptLocationCmb1" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="apptLocationCmb2" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="apptCustomerIDCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="122.0" prefWidth="700.0" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Save" />
+                  <Button mnemonicParsing="false" text="Cancel" />
+               </children>
+               <padding>
+                  <Insets right="150.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
