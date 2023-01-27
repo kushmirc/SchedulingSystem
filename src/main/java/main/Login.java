@@ -23,17 +23,18 @@ public class Login extends Application {
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
 
-
-        int rowsAffected = FruitsQuery.insert("Cherries", 1);
+        /*int rowsAffected = FruitsQuery.delete(7);
 
         if(rowsAffected > 0){
-            System.out.println("Insert Successful");
+            System.out.println("Delete Successful");
         } else {
-            System.out.println("Insert Failed");
-        }
+            System.out.println("Delete Failed");
+        }*/
+
+        FruitsQuery.select(3);
 
 
-        launch();
+        //launch();
         JDBC.closeConnection();
     }
 }
