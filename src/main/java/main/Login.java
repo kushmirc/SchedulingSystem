@@ -33,6 +33,8 @@ public class Login extends Application {
 
         FruitsQuery.select(3);
 
+        System.out.println("Update from Github worked!");
+
 
         //launch();
         JDBC.closeConnection();
