@@ -1,14 +1,32 @@
 package mirchandani.schedulingsystem;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
-public class LoginScreenController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginScreenController implements Initializable {
     @FXML
-    private Label welcomeText;
+    private Button LoginBtn;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private TextField passwordTxt;
+
+    @FXML
+    private TextField usernameTxt;
+
+    @FXML
+    void onActionLogin(ActionEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
