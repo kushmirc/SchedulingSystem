@@ -69,8 +69,8 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="500.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" text="Save" />
-                  <Button mnemonicParsing="false" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#onActionSaveCustomer" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#onActionDisplayMainScreen" text="Cancel" />
                </children>
                <padding>
                   <Insets right="120.0" />

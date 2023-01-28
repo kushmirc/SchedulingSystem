@@ -1,4 +1,6 @@
-package helper;
+package dao;
+
+import utility.JDBC;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

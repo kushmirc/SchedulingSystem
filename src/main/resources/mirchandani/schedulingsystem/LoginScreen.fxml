@@ -44,7 +44,7 @@
       </GridPane>
       <HBox layoutX="322.0" layoutY="338.0" prefHeight="25.0" prefWidth="157.0">
          <children>
-            <Button fx:id="LoginBtn" mnemonicParsing="false" prefHeight="23.0" prefWidth="157.0" text="Login" />
+            <Button fx:id="LoginBtn" mnemonicParsing="false" onAction="#onActionLogin" prefHeight="23.0" prefWidth="157.0" text="Login" />
          </children>
       </HBox>
    </children>

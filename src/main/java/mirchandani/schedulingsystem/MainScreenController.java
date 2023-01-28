@@ -20,8 +20,39 @@ public class MainScreenController implements Initializable {
 
     /** declares a scene variable */
     Parent scene;
+
+    @FXML
+    private DatePicker appointmentDatePicker;
+
     @FXML
     private ToggleGroup appointmentTG;
+
+    @FXML
+    private TableColumn<?, ?> apptContactIDCol;
+
+    @FXML
+    private TableColumn<?, ?> apptCustomerIDCol;
+
+    @FXML
+    private TableColumn<?, ?> apptDescriptionCol;
+
+    @FXML
+    private TableColumn<?, ?> apptEndCol;
+
+    @FXML
+    private TableColumn<?, ?> apptIDCol;
+
+    @FXML
+    private TableColumn<?, ?> apptLocationCol;
+
+    @FXML
+    private TableColumn<?, ?> apptStartCol;
+
+    @FXML
+    private TableColumn<?, ?> apptTitleCol;
+
+    @FXML
+    private TableColumn<?, ?> apptTypeCol;
 
     @FXML
     private RadioButton byCustomerRBtn;
@@ -36,46 +67,19 @@ public class MainScreenController implements Initializable {
     private TableColumn<?, ?> customerAddressCol;
 
     @FXML
-    private TableColumn<?, ?> customerAddressCol1;
-
-    @FXML
     private TableColumn<?, ?> customerDivisionIDCol;
-
-    @FXML
-    private TableColumn<?, ?> customerDivisionIDCol1;
-
-    @FXML
-    private TableColumn<?, ?> customerDivisionIDCol11;
-
-    @FXML
-    private TableColumn<?, ?> customerDivisionIDCol111;
-
-    @FXML
-    private TableColumn<?, ?> customerDivisionIDCol1111;
 
     @FXML
     private TableColumn<?, ?> customerIDCol;
 
     @FXML
-    private TableColumn<?, ?> customerIDCol1;
-
-    @FXML
     private TableColumn<?, ?> customerNameCol;
-
-    @FXML
-    private TableColumn<?, ?> customerNameCol1;
 
     @FXML
     private TableColumn<?, ?> customerPhoneCol;
 
     @FXML
-    private TableColumn<?, ?> customerPhoneCol1;
-
-    @FXML
     private TableColumn<?, ?> customerPostalCodeCol;
-
-    @FXML
-    private TableColumn<?, ?> customerPostalCodeCol1;
 
     @FXML
     private TableView<?> customersTableView;
@@ -96,33 +100,49 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void onActionAddCustomer(ActionEvent event) {
+    public void onActionAddCustomer(ActionEvent event) throws IOException {
+        //get the stage from the event's source widget
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("AddCustomer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML
+    public void onActionDeleteAppointment(ActionEvent event) {
 
     }
 
     @FXML
-    void onActionDeleteAppointment(ActionEvent event) {
+    public void onActionDeleteCustomer(ActionEvent event) {
 
     }
 
     @FXML
-    void onActionDeleteCustomer(ActionEvent event) {
-
+    public void onActionReports(ActionEvent event) throws IOException {
+        //get the stage from the event's source widget
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("ReportScreen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
-    void onActionReports(ActionEvent event) {
-
+    public void onActionUpdateAppointment(ActionEvent event) throws IOException {
+        //get the stage from the event's source widget
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("ModifyAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
-    void onActionUpdateAppointment(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionUpdateCustomer(ActionEvent event) {
-
+    public void onActionUpdateCustomer(ActionEvent event) throws IOException {
+        //get the stage from the event's source widget
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("ModifyCustomer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
 

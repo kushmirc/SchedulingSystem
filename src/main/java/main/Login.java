@@ -1,7 +1,7 @@
 package mirchandani.schedulingsystem;
 
-import helper.FruitsQuery;
-import helper.JDBC;
+import dao.FruitsQuery;
+import utility.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
