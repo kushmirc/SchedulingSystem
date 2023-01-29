@@ -31,11 +31,11 @@ public class Login extends Application {
             System.out.println("Delete Failed");
         }*/
 
-        FruitsQuery.select(3);
+        //FruitsQuery.select(3);
 
 
 
-        //launch();
+        launch();
         JDBC.closeConnection();
     }
 }
