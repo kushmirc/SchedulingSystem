@@ -11,9 +11,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import utility.JDBC;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AddCustomerController implements Initializable {
@@ -28,7 +32,7 @@ public class AddCustomerController implements Initializable {
     private TextField customerAddressTxt;
 
     @FXML
-    private ComboBox<?> customerCountryCmb;
+    private ComboBox<String> customerCountryCmb;
 
     @FXML
     private TextField customerNameTxt;
@@ -40,7 +44,7 @@ public class AddCustomerController implements Initializable {
     private TextField customerPostalCodeTxt;
 
     @FXML
-    private ComboBox<?> customerStateCmb;
+    private ComboBox<String> customerStateCmb;
 
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
@@ -61,8 +65,71 @@ public class AddCustomerController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    void onActionSelectCountry(ActionEvent event) {
+        System.out.println(customerCountryCmb.getValue());
+        initializeCity();
+    }
+
+    private void initializeCountry() {
+        try{
+            String sql = "SELECT Country FROM countries";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                customerCountryCmb.getItems().add(rs.getString("Country"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void initializeCityTest() {
+        try{
+            String sql = "SELECT Division FROM first_level_divisions";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                customerStateCmb.getItems().add(rs.getString("Division"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void initializeCity() {
+        try{
+            String country = customerCountryCmb.getValue();
+
+            String sql = "SELECT first_level_divisions.Division "
+                    + "FROM first_level_divisions, countries "
+                    + "WHERE first_level_divisions.Country_ID = countries.Country_ID "
+                    //+ "AND countries.Country = \"" + country + "\"";
+                    + "AND countries.Country = country";
+
+
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            customerStateCmb.getItems().clear();
+
+            while(rs.next()) {
+                customerStateCmb.getItems().add(rs.getString("Division"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        initializeCountry();
+        //initializeCityTest();
+        initializeCity();
+
     }
+
 }
