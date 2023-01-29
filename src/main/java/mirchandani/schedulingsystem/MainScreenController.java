@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,22 +65,22 @@ public class MainScreenController implements Initializable {
     private RadioButton byWeekRBtn;
 
     @FXML
-    private TableColumn<?, ?> customerAddressCol;
+    private TableColumn<Customer, String> customerAddressCol;
 
     @FXML
-    private TableColumn<?, ?> customerDivisionIDCol;
+    private TableColumn<Customer, Integer> customerDivisionIDCol;
 
     @FXML
-    private TableColumn<?, ?> customerIDCol;
+    private TableColumn<Customer, Integer> customerIDCol;
 
     @FXML
-    private TableColumn<?, ?> customerNameCol;
+    private TableColumn<Customer, String> customerNameCol;
 
     @FXML
-    private TableColumn<?, ?> customerPhoneCol;
+    private TableColumn<Customer, String> customerPhoneCol;
 
     @FXML
-    private TableColumn<?, ?> customerPostalCodeCol;
+    private TableColumn<Customer, String> customerPostalCodeCol;
 
     @FXML
     private TableView<?> customersTableView;
