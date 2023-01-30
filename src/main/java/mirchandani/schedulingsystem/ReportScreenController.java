@@ -46,10 +46,10 @@ public class ReportScreenController implements Initializable {
     private TextField appointmentsByTypeCountTxt;
 
     @FXML
-    private TableColumn<?, ?> apptByContactContactIDCol;
+    private TableColumn<?, ?> apptByContactContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactCustomerIDCol;
+    private TableColumn<?, ?> apptByContactCustomerIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByContactDescriptionCol;
@@ -58,7 +58,7 @@ public class ReportScreenController implements Initializable {
     private TableColumn<?, ?> apptByContactEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactIDCol;
+    private TableColumn<?, ?> apptByContactIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByContactLocationCol;
@@ -73,10 +73,10 @@ public class ReportScreenController implements Initializable {
     private TableColumn<?, ?> apptByContactTypeCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerContactIDCol;
+    private TableColumn<?, ?> apptByCustomerContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerCustomerIDCol;
+    private TableColumn<?, ?> apptByCustomerCustomerIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByCustomerDescriptionCol;
@@ -85,7 +85,7 @@ public class ReportScreenController implements Initializable {
     private TableColumn<?, ?> apptByCustomerEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerIDCol;
+    private TableColumn<?, ?> apptByCustomerIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByCustomerLocationCol;
@@ -100,10 +100,10 @@ public class ReportScreenController implements Initializable {
     private TableColumn<?, ?> apptByCustomerTypeCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthContactIDCol;
+    private TableColumn<?, ?> apptByMonthContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthCustomerIDCol;
+    private TableColumn<?, ?> apptByMonthCustomerIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByMonthDescriptionCol;
@@ -112,7 +112,7 @@ public class ReportScreenController implements Initializable {
     private TableColumn<?, ?> apptByMonthEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthIDCol;
+    private TableColumn<?, ?> apptByMonthIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByMonthLocationCol;
@@ -127,10 +127,10 @@ public class ReportScreenController implements Initializable {
     private TableColumn<?, ?> apptByMonthTypeCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeContactIDCol;
+    private TableColumn<?, ?> apptByTypeContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeCustomerIDCol;
+    private TableColumn<?, ?> apptByTypeCustomerIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByTypeDescriptionCol;
@@ -139,7 +139,7 @@ public class ReportScreenController implements Initializable {
     private TableColumn<?, ?> apptByTypeEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeIDCol;
+    private TableColumn<?, ?> apptByTypeIdCol;
 
     @FXML
     private TableColumn<?, ?> apptByTypeLocationCol;

@@ -1,5 +1,6 @@
 package mirchandani.schedulingsystem;
 
+import dao.CustomerDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
 
@@ -29,10 +31,10 @@ public class MainScreenController implements Initializable {
     private ToggleGroup appointmentTG;
 
     @FXML
-    private TableColumn<?, ?> apptContactIDCol;
+    private TableColumn<?, ?> apptContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptCustomerIDCol;
+    private TableColumn<?, ?> apptCustomerIdCol;
 
     @FXML
     private TableColumn<?, ?> apptDescriptionCol;
@@ -41,7 +43,7 @@ public class MainScreenController implements Initializable {
     private TableColumn<?, ?> apptEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptIDCol;
+    private TableColumn<?, ?> apptIdCol;
 
     @FXML
     private TableColumn<?, ?> apptLocationCol;
@@ -68,10 +70,10 @@ public class MainScreenController implements Initializable {
     private TableColumn<Customer, String> customerAddressCol;
 
     @FXML
-    private TableColumn<Customer, Integer> customerDivisionIDCol;
+    private TableColumn<Customer, Integer> customerDivisionIdCol;
 
     @FXML
-    private TableColumn<Customer, Integer> customerIDCol;
+    private TableColumn<Customer, Integer> customerIdCol;
 
     @FXML
     private TableColumn<Customer, String> customerNameCol;
@@ -83,7 +85,7 @@ public class MainScreenController implements Initializable {
     private TableColumn<Customer, String> customerPostalCodeCol;
 
     @FXML
-    private TableView<?> customersTableView;
+    private TableView<Customer> customersTableView;
 
     @FXML
     private TableView<?> customersTableView1;
@@ -151,6 +153,18 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            customersTableView.setItems(CustomerDao.getAllCustomers());
 
+            customerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+            customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+            customerPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        } catch (
+                Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }

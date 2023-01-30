@@ -5,5 +5,6 @@ module mirchandani.schedulingsystem {
 
 
     opens mirchandani.schedulingsystem to javafx.fxml;
+    opens model to javafx.base;
     exports mirchandani.schedulingsystem;
 }
