@@ -67,7 +67,6 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void onActionSelectCountry(ActionEvent event) {
-        System.out.println(customerCountryCmb.getValue());
         initializeCity();
     }
 
@@ -85,19 +84,6 @@ public class AddCustomerController implements Initializable {
         }
     }
 
-    private void initializeCityTest() {
-        try{
-            String sql = "SELECT Division FROM first_level_divisions";
-            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                customerStateCmb.getItems().add(rs.getString("Division"));
-            }
-        }
-        catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
 
     private void initializeCity() {
         try{
@@ -106,8 +92,7 @@ public class AddCustomerController implements Initializable {
             String sql = "SELECT first_level_divisions.Division "
                     + "FROM first_level_divisions, countries "
                     + "WHERE first_level_divisions.Country_ID = countries.Country_ID "
-                    //+ "AND countries.Country = \"" + country + "\"";
-                    + "AND countries.Country = country";
+                    + "AND countries.Country = \"" + country + "\"";
 
 
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -127,8 +112,7 @@ public class AddCustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeCountry();
-        //initializeCityTest();
-        initializeCity();
+        //initializeCity();
 
     }
 
