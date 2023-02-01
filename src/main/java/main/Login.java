@@ -2,6 +2,7 @@ package mirchandani.schedulingsystem;
 
 import dao.CustomerDao;
 import dao.FruitsQuery;
+import dao.UserDao;
 import utility.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +37,8 @@ public class Login extends Application {
             System.out.println("Delete Failed");
         }*/
 
-        //CustomerDao.getAllCustomers();
+        CustomerDao.getCustomer();
+        UserDao.getUser();
 
 
         launch();

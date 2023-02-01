@@ -11,39 +11,22 @@ import java.sql.SQLException;
 
 public abstract class UserDao {
 
-    /*public static void select() throws SQLException {
-        String sql = "SELECT * FROM fruits";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            int fruitId = rs.getInt("Fruit_ID");
-            String fruitName = rs.getString("Fruit_Name");
-            System.out.print(fruitId + " | " );
-            System.out.print(fruitName + "\n");
-        }
-    }*/
 
-    public static void getCustomer() throws SQLException {
-        String sql = "SELECT * FROM customers";
+    public static void getUser() throws SQLException {
+        String sql = "SELECT * FROM users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            int customerId = rs.getInt("Customer_ID");
-            String customerName = rs.getString("Customer_Name");
-            String customerAddress = rs.getString("Address");
-            String customerPostalCode = rs.getString("Postal_Code");
-            String customerPhone = rs.getString("Phone");
-            int customerDivisionId = rs.getInt("Division_ID");
-            System.out.print(customerId + " | ");
-            System.out.print(customerName + " | ");
-            System.out.print(customerAddress + " | ");
-            System.out.print(customerPostalCode + " | ");
-            System.out.print(customerPhone + " | ");
-            System.out.print(customerDivisionId + "\n");
+            int userId = rs.getInt("User_ID");
+            String userName = rs.getString("User_Name");
+            String userPassword = rs.getString("Password");
+            System.out.print(userId + " | ");
+            System.out.print(userName + " | ");
+            System.out.print(userPassword + "\n");
         }
     }
 
-    public static ObservableList<Customer> getAllCustomers() throws SQLException {
+    public static ObservableList<User> getAllCustomers() throws SQLException {
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
