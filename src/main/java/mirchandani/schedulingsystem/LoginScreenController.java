@@ -42,6 +42,12 @@ public class LoginScreenController implements Initializable {
     private Label welcomeLbl;
 
     @FXML
+    private Label timeZoneLbl;
+
+    @FXML
+    private TextField timeZoneTxt;
+
+    @FXML
     public  void onActionLogin(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -62,6 +68,7 @@ public class LoginScreenController implements Initializable {
             usernameLbl.setText(rb.getString("Username"));
             passwordLbl.setText(rb.getString("Password"));
             loginBtn.setText(rb.getString("Login"));
+            timeZoneLbl.setText(rb.getString("Time Zone"));
         }
         catch(Exception e){
             System.out.println("Error: " + e.getMessage());
