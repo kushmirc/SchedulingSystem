@@ -54,7 +54,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="timeZoneTxt" prefHeight="25.0" prefWidth="195.0" />
+            <TextField fx:id="timeZoneTxt" opacity="0.0" prefHeight="25.0" prefWidth="195.0" />
          </children>
       </HBox>
    </children>
