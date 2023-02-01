@@ -38,8 +38,6 @@ public class Login extends Application {
 
         //CustomerDao.getAllCustomers();
 
-        RBMain.language();
-        RBMain.zone();
 
         launch();
         JDBC.closeConnection();
