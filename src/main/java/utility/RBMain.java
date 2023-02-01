@@ -9,7 +9,7 @@ public class RBMain {
 
         ResourceBundle rb = ResourceBundle.getBundle("utility/Nat", Locale.getDefault());
 
-        if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("fr"));
+        if(Locale.getDefault().getLanguage().equals("es_ES") || Locale.getDefault().getLanguage().equals("fr"));
             System.out.println(rb.getString("hello") + " " + rb.getString("world"));
     }
 }
