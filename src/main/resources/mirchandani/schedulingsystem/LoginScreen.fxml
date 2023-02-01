@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mirchandani.schedulingsystem.LoginScreenController">
    <children>
-      <HBox layoutX="314.0" layoutY="132.0" prefHeight="53.0" prefWidth="172.0">
+      <HBox alignment="TOP_CENTER" layoutX="198.0" layoutY="134.0" prefHeight="51.0" prefWidth="416.0">
          <children>
-            <Label fx:id="welcomeLbl" contentDisplay="CENTER" prefHeight="47.0" prefWidth="166.0" text="Welcome" textAlignment="CENTER">
+            <Label fx:id="welcomeLbl" alignment="CENTER" contentDisplay="CENTER" maxWidth="340.0" prefHeight="50.0" prefWidth="340.0" text="Welcome" textAlignment="CENTER">
                <font>
                   <Font size="40.0" />
                </font>
