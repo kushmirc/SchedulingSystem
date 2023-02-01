@@ -24,7 +24,7 @@ public class LoginScreenController implements Initializable {
     /** declares a scene variable */
     Parent scene;
     @FXML
-    private Button LoginBtn;
+    private Button loginBtn;
 
     @FXML
     private Label passwordLbl;
@@ -59,6 +59,9 @@ public class LoginScreenController implements Initializable {
             System.out.println(rb.getString("hello") + " " + rb.getString("world"));
 
             welcomeLbl.setText(rb.getString("Welcome"));
+            usernameLbl.setText(rb.getString("Username"));
+            passwordLbl.setText(rb.getString("Password"));
+            loginBtn.setText(rb.getString("Login"));
         }
         catch(Exception e){
             System.out.println("Error: " + e.getMessage());
