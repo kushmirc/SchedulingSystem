@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
@@ -26,10 +27,19 @@ public class LoginScreenController implements Initializable {
     private Button LoginBtn;
 
     @FXML
+    private Label passwordLbl;
+
+    @FXML
     private TextField passwordTxt;
 
     @FXML
+    private Label usernameLbl;
+
+    @FXML
     private TextField usernameTxt;
+
+    @FXML
+    private Label welcomeLbl;
 
     @FXML
     public  void onActionLogin(ActionEvent event) throws IOException {
@@ -40,8 +50,23 @@ public class LoginScreenController implements Initializable {
         stage.show();
     }
 
+    public void language() {
+
+        try{
+            ResourceBundle rb = ResourceBundle.getBundle("Nat", Locale.getDefault());
+
+            if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("fr"));
+            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
+
+            welcomeLbl.setText(rb.getString("Welcome"));
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
     }
 }
