@@ -43,7 +43,10 @@ public class LoginScreenController implements Initializable {
     private Label welcomeLbl;
 
     @FXML
-    private Label timeZoneLbl;
+    private Label timeZoneLbl1;
+
+    @FXML
+    private Label timeZoneLbl2;
 
     @FXML
     private TextField timeZoneTxt;
@@ -69,7 +72,7 @@ public class LoginScreenController implements Initializable {
             usernameLbl.setText(rb.getString("Username"));
             passwordLbl.setText(rb.getString("Password"));
             loginBtn.setText(rb.getString("Login"));
-            timeZoneLbl.setText(rb.getString("Time_Zone"));
+            timeZoneLbl1.setText(rb.getString("Time_Zone"));
         }
         catch(Exception e){
             System.out.println("Error: " + e.getMessage());
@@ -78,7 +81,7 @@ public class LoginScreenController implements Initializable {
     public void zone() {
         try {
             ZoneId zone = ZoneId.systemDefault();
-            timeZoneTxt.setText(String.valueOf(zone));
+            timeZoneLbl2.setText(String.valueOf(zone));
         } catch (
                 Exception e) {
             System.out.println("Error: " + e.getMessage());
