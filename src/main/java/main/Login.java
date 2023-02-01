@@ -7,12 +7,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utility.RBMain;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import utility.RBMain;
 
 public class Login extends Application {
     @Override
@@ -37,10 +38,6 @@ public class Login extends Application {
 
         //CustomerDao.getAllCustomers();
 
-
-
-        RBMain.language();
-        RBMain.zone();
 
         launch();
         JDBC.closeConnection();
