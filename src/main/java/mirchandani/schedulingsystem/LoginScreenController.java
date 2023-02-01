@@ -48,6 +48,12 @@ public class LoginScreenController implements Initializable {
     @FXML
     private Label timeZoneLbl2;
 
+    @FXML
+    private Label usernameExLbl;
+
+    @FXML
+    private Label passwordExLbl;
+
 
     @FXML
     public  void onActionLogin(ActionEvent event) throws IOException {

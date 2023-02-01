@@ -37,8 +37,8 @@ public class Login extends Application {
             System.out.println("Delete Failed");
         }*/
 
-        CustomerDao.getCustomer();
-        UserDao.getUser();
+        //CustomerDao.getCustomer();
+        //UserDao.getAllUsers();
 
 
         launch();

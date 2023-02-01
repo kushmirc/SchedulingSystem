@@ -22,10 +22,11 @@
             </Label>
          </children>
       </HBox>
-      <GridPane layoutX="281.0" layoutY="256.0" prefHeight="57.0" prefWidth="237.0">
+      <GridPane layoutX="281.0" layoutY="256.0" prefHeight="57.0" prefWidth="367.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="111.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="126.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="126.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -40,6 +41,8 @@
                </GridPane.margin>
             </Label>
             <Label fx:id="passwordLbl" prefHeight="17.0" prefWidth="114.0" text="Password :" GridPane.rowIndex="1" />
+            <Label fx:id="usernameExLbl" prefHeight="17.0" prefWidth="125.0" GridPane.columnIndex="2" />
+            <Label fx:id="passwordExLbl" prefHeight="17.0" prefWidth="127.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <HBox layoutX="322.0" layoutY="338.0" prefHeight="25.0" prefWidth="157.0">
