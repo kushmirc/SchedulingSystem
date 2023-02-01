@@ -13,14 +13,15 @@ public class RBMain {
 
         if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("fr"));
             System.out.println(rb.getString("hello") + " " + rb.getString("world"));
-    }
+        }
         catch(Exception e){
             System.out.println("Error: " + e.getMessage());
         }
-        }
+    }
 
     public static void zone() {
         ZoneId zone = ZoneId.systemDefault();
         System.out.println(zone);
     }
+
 }

@@ -67,6 +67,7 @@ public class LoginScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        language();
 
     }
 }
