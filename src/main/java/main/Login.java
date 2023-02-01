@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utility.RBMain;
 
 
 import java.io.IOException;
@@ -37,15 +38,11 @@ public class Login extends Application {
 
         //CustomerDao.getAllCustomers();
 
-
+        RBMain.language();
+        RBMain.zone();
 
         //launch();
         //JDBC.closeConnection();
-
-        ResourceBundle rb = ResourceBundle.getBundle("utility/Nat", Locale.getDefault());
-
-        if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("fr"));
-        System.out.println(rb.getString("hello") + " " + rb.getString("world"));
 
     }
 }
