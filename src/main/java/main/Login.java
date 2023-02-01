@@ -26,7 +26,7 @@ public class Login extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
-        //JDBC.openConnection();
+        JDBC.openConnection();
 
         /*int rowsAffected = FruitsQuery.delete(7);
 
@@ -41,8 +41,8 @@ public class Login extends Application {
         RBMain.language();
         RBMain.zone();
 
-        //launch();
-        //JDBC.closeConnection();
+        launch();
+        JDBC.closeConnection();
 
     }
 }
