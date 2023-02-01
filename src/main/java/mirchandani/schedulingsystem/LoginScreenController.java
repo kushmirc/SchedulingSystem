@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -74,10 +75,22 @@ public class LoginScreenController implements Initializable {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    public void zone() {
+        try {
+            ZoneId zone = ZoneId.systemDefault();
+            timeZoneTxt.setText(String.valueOf(zone));
+        } catch (
+                Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         language();
+        zone();
 
     }
 }
