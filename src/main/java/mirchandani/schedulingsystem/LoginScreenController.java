@@ -1,5 +1,8 @@
 package mirchandani.schedulingsystem;
 
+import dao.UserDao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -56,12 +61,23 @@ public class LoginScreenController implements Initializable {
 
 
     @FXML
-    public  void onActionLogin(ActionEvent event) throws IOException {
-        //get the stage from the event's source widget
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+    public  void onActionLogin(ActionEvent event) throws IOException, SQLException {
+        UserDao.getAllUsers();
+        usernameExLbl.setText("");
+        ObservableList<User> searchedUser;
+
+        searchedUser = UserDao.lookupUser(usernameTxt.getText());
+
+        if (searchedUser.size() == 0) {
+            usernameExLbl.setText("Username not found");
+        } else {
+
+            //get the stage from the event's source widget
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void language() {

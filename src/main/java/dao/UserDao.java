@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 public abstract class UserDao {
 
+    private static ObservableList<User> allUsers = FXCollections.observableArrayList();
 
     public static void getUser() throws SQLException {
         String sql = "SELECT * FROM users";
@@ -28,7 +29,7 @@ public abstract class UserDao {
     }
 
     public static ObservableList<User> getAllUsers() throws SQLException {
-        ObservableList<User> allUsers = FXCollections.observableArrayList();
+
         String sql = "SELECT * FROM users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -44,6 +45,16 @@ public abstract class UserDao {
         }
             return  allUsers;
 
+    }
+    public static ObservableList<User> lookupUser(String userName) {
+        ObservableList<User> namedUser = FXCollections.observableArrayList();
+
+        for (User user : allUsers) {
+            if (user.getName().equals(userName)) {
+                namedUser.add(user);
+            }
+        }
+        return namedUser;
     }
 
 }
