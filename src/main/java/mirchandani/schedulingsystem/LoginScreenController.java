@@ -20,6 +20,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
@@ -64,12 +65,15 @@ public class LoginScreenController implements Initializable {
     public  void onActionLogin(ActionEvent event) throws IOException, SQLException {
         UserDao.getAllUsers();
         usernameExLbl.setText("");
+        passwordExLbl.setText("");
         ObservableList<User> searchedUser;
 
         searchedUser = UserDao.lookupUser(usernameTxt.getText());
 
         if (searchedUser.size() == 0) {
             usernameExLbl.setText("Username not found");
+        } else if (!Objects.equals(searchedUser.get(0).getPassword(), passwordTxt.getText())) {
+            passwordExLbl.setText("Incorrect password");
         } else {
 
             //get the stage from the event's source widget
