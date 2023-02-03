@@ -1,5 +1,6 @@
 package mirchandani.schedulingsystem;
 
+import dao.AppointmentDao;
 import dao.CustomerDao;
 import dao.FruitsQuery;
 import dao.UserDao;
@@ -39,7 +40,7 @@ public class Login extends Application {
 
         //CustomerDao.getCustomer();
         //UserDao.getAllUsers();
-
+        AppointmentDao.getAppointment();
 
         launch();
         JDBC.closeConnection();

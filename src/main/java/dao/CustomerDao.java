@@ -59,7 +59,7 @@ public abstract class CustomerDao {
             Customer customerResult = new Customer(customerId, customerName, customerAddress, customerPostalCode, customerPhone, customerDivisionId);
             allCustomers.add(customerResult);
 
-            System.out.println(allCustomers);
+            //System.out.println(allCustomers);
         }
             return  allCustomers;
 

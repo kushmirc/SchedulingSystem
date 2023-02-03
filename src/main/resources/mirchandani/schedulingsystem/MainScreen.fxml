@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mirchandani.schedulingsystem.MainScreenController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mirchandani.schedulingsystem.MainScreenController">
    <children>
       <VBox prefHeight="800.0" prefWidth="1000.0">
          <children>
@@ -118,17 +126,17 @@
             </HBox>
             <HBox layoutX="40.0" layoutY="89.0" prefHeight="228.0" prefWidth="940.0">
                <children>
-                  <TableView fx:id="customersTableView1" prefHeight="220.0" prefWidth="940.0">
+                  <TableView fx:id="appointmentsTableView" prefHeight="220.0" prefWidth="940.0">
                      <columns>
-                        <TableColumn fx:id="apptIdCol" prefWidth="92.0" text="Appointment ID" />
-                        <TableColumn fx:id="apptTitleCol" prefWidth="112.0" text="Title" />
+                        <TableColumn fx:id="apptIdCol" prefWidth="94.0" text="Appointment ID" />
+                        <TableColumn fx:id="apptTitleCol" prefWidth="76.0" text="Title" />
                         <TableColumn fx:id="apptCustomerIdCol" minWidth="0.0" prefWidth="74.0" text="Customer ID" />
-                        <TableColumn fx:id="apptContactIdCol" prefWidth="67.0" text="Contact ID" />
-                        <TableColumn fx:id="apptDescriptionCol" minWidth="0.0" prefWidth="207.0" text="Description" />
-                        <TableColumn fx:id="apptLocationCol" prefWidth="114.0" text="Location" />
-                        <TableColumn fx:id="apptTypeCol" minWidth="0.0" prefWidth="97.0" text="Type" />
-                        <TableColumn fx:id="apptStartCol" minWidth="0.0" prefWidth="87.0" text="Start" />
-                        <TableColumn fx:id="apptEndCol" minWidth="0.0" prefWidth="89.0" text="End" />
+                        <TableColumn fx:id="apptContactIdCol" prefWidth="62.0" text="Contact ID" />
+                        <TableColumn fx:id="apptDescriptionCol" minWidth="0.0" prefWidth="150.0" text="Description" />
+                        <TableColumn fx:id="apptLocationCol" prefWidth="69.0" text="Location" />
+                        <TableColumn fx:id="apptTypeCol" minWidth="0.0" prefWidth="113.0" text="Type" />
+                        <TableColumn fx:id="apptStartCol" minWidth="0.0" prefWidth="151.0" text="Start" />
+                        <TableColumn fx:id="apptEndCol" minWidth="0.0" prefWidth="150.0" text="End" />
                      </columns>
                      <HBox.margin>
                         <Insets />
