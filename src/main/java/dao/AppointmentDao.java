@@ -61,7 +61,7 @@ public abstract class AppointmentDao {
             Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStart, appointmentEnd, customerId, userId, contactId);
             allAppointments.add(appointmentResult);
 
-            System.out.println(allAppointments);
+            //System.out.println(allAppointments);
         }
             return  allAppointments;
 

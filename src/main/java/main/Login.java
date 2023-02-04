@@ -30,9 +30,13 @@ public class Login extends Application {
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
 
-        /*int rowsAffected = FruitsQuery.delete(7);
 
-        if(rowsAffected > 0){
+            //FruitsQuery.insert("Cherries", 1);
+
+            //FruitsQuery.delete(7);
+        //int rowsAffected = FruitsQuery.delete(7);
+
+        /*if(rowsAffected > 0){
             System.out.println("Delete Successful");
         } else {
             System.out.println("Delete Failed");
@@ -40,7 +44,7 @@ public class Login extends Application {
 
         //CustomerDao.getCustomer();
         //UserDao.getAllUsers();
-        AppointmentDao.getAppointment();
+        //AppointmentDao.getAppointment();
 
         launch();
         JDBC.closeConnection();

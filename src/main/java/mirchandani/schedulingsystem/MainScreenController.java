@@ -167,7 +167,7 @@ public class MainScreenController implements Initializable {
             customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
             customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
             customerPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-            //customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+            customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         } catch (
                 Exception e) {
             System.out.println("Error: " + e.getMessage());

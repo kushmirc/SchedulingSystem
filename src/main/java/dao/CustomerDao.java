@@ -11,18 +11,6 @@ import java.sql.SQLException;
 
 public abstract class CustomerDao {
 
-    /*public static void select() throws SQLException {
-        String sql = "SELECT * FROM fruits";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            int fruitId = rs.getInt("Fruit_ID");
-            String fruitName = rs.getString("Fruit_Name");
-            System.out.print(fruitId + " | " );
-            System.out.print(fruitName + "\n");
-        }
-    }*/
-
     public static void getCustomer() throws SQLException {
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -63,6 +51,18 @@ public abstract class CustomerDao {
         }
             return  allCustomers;
 
+    }
+
+    public static int insertCustomer(String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
+        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, name);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setInt(5, divisionId);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
     }
 
 }

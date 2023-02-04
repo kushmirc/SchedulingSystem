@@ -1,5 +1,7 @@
 package mirchandani.schedulingsystem;
 
+import dao.CustomerDao;
+import dao.FruitsQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +48,30 @@ public class AddCustomerController implements Initializable {
     @FXML
     private ComboBox<String> customerStateCmb;
 
+    public TextField getCustomerAddressTxt() {
+        return customerAddressTxt;
+    }
+
+    public ComboBox<String> getCustomerCountryCmb() {
+        return customerCountryCmb;
+    }
+
+    public TextField getCustomerNameTxt() {
+        return customerNameTxt;
+    }
+
+    public TextField getCustomerPhoneTxt() {
+        return customerPhoneTxt;
+    }
+
+    public TextField getCustomerPostalCodeTxt() {
+        return customerPostalCodeTxt;
+    }
+
+    public ComboBox<String> getCustomerStateCmb() {
+        return customerStateCmb;
+    }
+
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
@@ -56,7 +82,19 @@ public class AddCustomerController implements Initializable {
     }
 
     @FXML
-    public void onActionSaveCustomer(ActionEvent event) throws IOException {
+    public void onActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
+
+        String state = customerStateCmb.getValue();
+
+        String sql = "SELECT Division_ID "
+                + "FROM first_level_divisions "
+                + "WHERE Division = \"" + state + "\"";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+
+        CustomerDao.insertCustomer(customerNameTxt.getText(), customerAddressTxt.getText(), customerPostalCodeTxt.getText(), customerPhoneTxt.getText(), rs.getInt("Division_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -112,7 +150,9 @@ public class AddCustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeCountry();
-        //initializeCity();
+
+
+
 
     }
 

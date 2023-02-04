@@ -41,7 +41,7 @@ public abstract class UserDao {
             User userResult = new User(userId, userName, userPassword);
             allUsers.add(userResult);
 
-            System.out.println(allUsers);
+            //System.out.println(allUsers);
         }
             return  allUsers;
 
