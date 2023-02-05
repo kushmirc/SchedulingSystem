@@ -64,16 +64,16 @@ public class LoginScreenController implements Initializable {
     @FXML
     public  void onActionLogin(ActionEvent event) throws IOException, SQLException {
         UserDao.getAllUsers();
-        usernameExLbl.setText("");
-        passwordExLbl.setText("");
+        usernameExLbl.setVisible(false);
+        passwordExLbl.setVisible(false);
         ObservableList<User> searchedUser;
 
         searchedUser = UserDao.lookupUser(usernameTxt.getText());
 
         if (searchedUser.size() == 0) {
-            usernameExLbl.setText("Username not found");
+            usernameExLbl.setVisible(true);
         } else if (!Objects.equals(searchedUser.get(0).getPassword(), passwordTxt.getText())) {
-            passwordExLbl.setText("Incorrect password");
+            passwordExLbl.setVisible(true);
         } else {
 
             //get the stage from the event's source widget
@@ -122,6 +122,8 @@ public class LoginScreenController implements Initializable {
 
         language();
         zone();
+        usernameExLbl.setVisible(false);
+        passwordExLbl.setVisible(false);
 
     }
 }
