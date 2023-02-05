@@ -1,7 +1,12 @@
 package mirchandani.schedulingsystem;
 
+import dao.AppointmentDao;
 import dao.CustomerDao;
 import dao.FruitsQuery;
+import dao.UserDao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.User;
 import utility.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -28,16 +33,21 @@ public class Login extends Application {
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
 
-        /*int rowsAffected = FruitsQuery.delete(7);
 
-        if(rowsAffected > 0){
+        //FruitsQuery.insert("Cherries", 1);
+
+            //FruitsQuery.delete(7);
+        //int rowsAffected = FruitsQuery.delete(7);
+
+        /*if(rowsAffected > 0){
             System.out.println("Delete Successful");
         } else {
             System.out.println("Delete Failed");
         }*/
 
-        //CustomerDao.getAllCustomers();
-
+        //CustomerDao.getCustomer();
+        //UserDao.getAllUsers();
+        //AppointmentDao.getAppointment();
 
         launch();
         JDBC.closeConnection();

@@ -1,5 +1,6 @@
 package mirchandani.schedulingsystem;
 
+import dao.AppointmentDao;
 import dao.CustomerDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,10 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
 import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -31,31 +34,31 @@ public class MainScreenController implements Initializable {
     private ToggleGroup appointmentTG;
 
     @FXML
-    private TableColumn<?, ?> apptContactIdCol;
+    private TableColumn<Appointment, Integer> apptContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptCustomerIdCol;
+    private TableColumn<Appointment, Integer> apptCustomerIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptDescriptionCol;
+    private TableColumn<Appointment, String> apptDescriptionCol;
 
     @FXML
-    private TableColumn<?, ?> apptEndCol;
+    private TableColumn<Appointment, Timestamp> apptEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptIdCol;
+    private TableColumn<Appointment, Integer> apptIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptLocationCol;
+    private TableColumn<Appointment, String> apptLocationCol;
 
     @FXML
-    private TableColumn<?, ?> apptStartCol;
+    private TableColumn<Appointment, Timestamp> apptStartCol;
 
     @FXML
-    private TableColumn<?, ?> apptTitleCol;
+    private TableColumn<Appointment, String> apptTitleCol;
 
     @FXML
-    private TableColumn<?, ?> apptTypeCol;
+    private TableColumn<Appointment, String> apptTypeCol;
 
     @FXML
     private RadioButton byCustomerRBtn;
@@ -88,10 +91,13 @@ public class MainScreenController implements Initializable {
     private TableView<Customer> customersTableView;
 
     @FXML
-    private TableView<?> customersTableView1;
+    private TableView<Appointment> appointmentsTableView;
 
     @FXML
     private RadioButton veiwAllRBtn;
+
+    public MainScreenController() {
+    }
 
     @FXML
     public void onActionAddAppointment(ActionEvent event) throws IOException {
@@ -162,6 +168,24 @@ public class MainScreenController implements Initializable {
             customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
             customerPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
             customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        } catch (
+                Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        try {
+            appointmentsTableView.setItems(AppointmentDao.getAllAppointments());
+
+            apptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            apptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+            apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+            apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+            apptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+            apptContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+
         } catch (
                 Exception e) {
             System.out.println("Error: " + e.getMessage());
