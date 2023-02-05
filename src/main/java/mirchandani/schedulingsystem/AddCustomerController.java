@@ -122,7 +122,6 @@ public class AddCustomerController implements Initializable {
         }
     }
 
-
     private void initializeCity() {
         try{
             String country = customerCountryCmb.getValue();
