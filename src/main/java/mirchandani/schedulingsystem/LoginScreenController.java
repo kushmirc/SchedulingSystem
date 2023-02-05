@@ -97,6 +97,10 @@ public class LoginScreenController implements Initializable {
             passwordLbl.setText(rb.getString("Password"));
             loginBtn.setText(rb.getString("Login"));
             timeZoneLbl1.setText(rb.getString("Time_Zone"));
+            usernameExLbl.setText(rb.getString("Username_not_found"));
+            passwordExLbl.setText(rb.getString("Incorrect_password"));
+
+
         }
         catch(Exception e){
             System.out.println("Error: " + e.getMessage());
