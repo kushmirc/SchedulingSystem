@@ -131,7 +131,6 @@ public class AddCustomerController implements Initializable {
                     + "WHERE first_level_divisions.Country_ID = countries.Country_ID "
                     + "AND countries.Country = \"" + country + "\"";
 
-
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             customerStateCmb.getItems().clear();

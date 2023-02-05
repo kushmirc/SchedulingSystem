@@ -147,6 +147,10 @@ public class MainScreenController implements Initializable {
 
     @FXML
     public void onActionUpdateCustomer(ActionEvent event) throws IOException {
+
+        Customer clickedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+        ModifyCustomerController.updateCustomer(clickedCustomer);
+
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("ModifyCustomer.fxml"));

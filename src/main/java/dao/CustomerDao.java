@@ -46,11 +46,9 @@ public abstract class CustomerDao {
 
             Customer customerResult = new Customer(customerId, customerName, customerAddress, customerPostalCode, customerPhone, customerDivisionId);
             allCustomers.add(customerResult);
-
             //System.out.println(allCustomers);
         }
             return  allCustomers;
-
     }
 
     public static int insertCustomer(String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
@@ -65,4 +63,15 @@ public abstract class CustomerDao {
         return rowsAffected;
     }
 
+    public static int updateCustomer(String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
+        String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, name);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setInt(5, divisionId);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
 }

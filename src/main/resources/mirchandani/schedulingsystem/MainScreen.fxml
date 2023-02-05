@@ -50,7 +50,7 @@
                         <TableColumn fx:id="customerAddressCol" minWidth="0.0" prefWidth="391.0" text="Address" />
                         <TableColumn fx:id="customerPostalCodeCol" prefWidth="83.0" text="Postal Code" />
                         <TableColumn fx:id="customerPhoneCol" prefWidth="114.0" text="Phone" />
-                        <TableColumn fx:id="customerDivisionIdCol" prefWidth="73.0" text="Division ID" />
+                        <TableColumn fx:id="customerDivisionIdCol" prefWidth="73.0" text=" Division ID" />
                     </columns>
                      <HBox.margin>
                         <Insets />

@@ -112,7 +112,7 @@
                         <ComboBox fx:id="apptLocationCmb2" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                         <ComboBox fx:id="apptCustomerIDCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Appointment ID:" />
-                        <TextField fx:id="appointmentIDTxt" GridPane.columnIndex="1" />
+                        <TextField fx:id="appointmentIDTxt" disable="true" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>

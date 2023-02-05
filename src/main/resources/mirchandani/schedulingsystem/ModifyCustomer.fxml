@@ -62,7 +62,7 @@
                         <ComboBox fx:id="customerCountryCmb" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <ComboBox fx:id="customerStateCmb" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="ID:" />
-                        <TextField fx:id="customerIDTxt" editable="false" GridPane.columnIndex="1" />
+                        <TextField fx:id="customerIDTxt" disable="true" editable="false" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>
