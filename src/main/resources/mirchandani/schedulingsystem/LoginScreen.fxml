@@ -41,11 +41,11 @@
                </GridPane.margin>
             </Label>
             <Label fx:id="passwordLbl" prefHeight="17.0" prefWidth="114.0" text="Password :" GridPane.rowIndex="1" />
-            <Label fx:id="usernameExLbl" prefHeight="17.0" prefWidth="127.0" text="Username not found" GridPane.columnIndex="2">
+            <Label fx:id="usernameExLbl" prefHeight="17.0" prefWidth="187.0" text="Username not found" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin></Label>
-            <Label fx:id="passwordExLbl" prefHeight="17.0" prefWidth="127.0" text="Incorrect password" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="passwordExLbl" prefHeight="17.0" prefWidth="208.0" text="Incorrect password" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin></Label>
