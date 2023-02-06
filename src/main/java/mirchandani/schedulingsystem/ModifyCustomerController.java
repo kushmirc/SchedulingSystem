@@ -201,6 +201,7 @@ catch (Exception e) {
 
         getCountryFromState();
         initializeCountry();
+        initializeCity();
 
         //this implements the getStateFromDivisionId2 option
         /*try {
