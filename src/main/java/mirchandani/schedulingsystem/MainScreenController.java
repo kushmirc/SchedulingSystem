@@ -158,9 +158,6 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

@@ -149,9 +149,6 @@ public class AddCustomerController implements Initializable {
 
         initializeCountry();
 
-
-
-
     }
 
 }

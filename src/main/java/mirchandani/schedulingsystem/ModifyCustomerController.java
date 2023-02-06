@@ -53,6 +53,11 @@ public class ModifyCustomerController implements Initializable {
     private ComboBox<String> customerStateCmb;
 
     @FXML
+    void onActionSelectCountry(ActionEvent event) {
+        initializeCity();
+    }
+
+    @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -74,7 +79,9 @@ public class ModifyCustomerController implements Initializable {
         ResultSet rs = ps.executeQuery();
         rs.next();
 
-        CustomerDao.updateCustomer(customerNameTxt.getText(), customerAddressTxt.getText(), customerPostalCodeTxt.getText(), customerPhoneTxt.getText(), rs.getInt("Division_ID"));
+        //Integer.parseInt(customerIDTxt.getText())
+        //rs.getInt("Division_ID")
+        CustomerDao.updateCustomer(Integer.parseInt(customerIDTxt.getText()), customerNameTxt.getText(), customerAddressTxt.getText(), customerPostalCodeTxt.getText(), customerPhoneTxt.getText(), rs.getInt("Division_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -139,9 +146,47 @@ catch (Exception e) {
 }
     }
 
+    private void initializeCountry() {
+        try{
+            String sql = "SELECT Country FROM countries";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                customerCountryCmb.getItems().add(rs.getString("Country"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void initializeCity() {
+        try{
+            String country = customerCountryCmb.getValue();
+
+            String sql = "SELECT first_level_divisions.Division "
+                    + "FROM first_level_divisions, countries "
+                    + "WHERE first_level_divisions.Country_ID = countries.Country_ID "
+                    + "AND countries.Country = \"" + country + "\"";
+
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            customerStateCmb.getItems().clear();
+
+            while(rs.next()) {
+                customerStateCmb.getItems().add(rs.getString("Division"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
 
         customerIDTxt.setText(String.valueOf(loadedCustomer.getId()));
         customerNameTxt.setText(String.valueOf(loadedCustomer.getName()));
@@ -155,6 +200,7 @@ catch (Exception e) {
         }
 
         getCountryFromState();
+        initializeCountry();
 
         //this implements the getStateFromDivisionId2 option
         /*try {
