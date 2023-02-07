@@ -8,9 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import utility.JDBC;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentController implements Initializable {
@@ -25,10 +28,10 @@ public class ModifyAppointmentController implements Initializable {
     private TextField appointmentIDTxt;
 
     @FXML
-    private ComboBox<?> apptContactCmb;
+    private ComboBox<String> apptContactCmb;
 
     @FXML
-    private ComboBox<?> apptCustomerIDCmb;
+    private ComboBox<String> apptCustomerIDCmb;
 
     @FXML
     private TextField apptDescriptionTxt;
@@ -37,40 +40,40 @@ public class ModifyAppointmentController implements Initializable {
     private DatePicker apptEndTimeDt;
 
     @FXML
-    private ComboBox<?> apptEndTimeHHCmb;
+    private ComboBox<String> apptEndTimeHHCmb;
 
     @FXML
-    private ComboBox<?> apptEndTimeMMCmb;
+    private ComboBox<String> apptEndTimeMMCmb;
 
     @FXML
-    private ComboBox<?> apptEndTimeSSCmb;
+    private ComboBox<String> apptEndTimeSSCmb;
 
     @FXML
-    private ComboBox<?> apptLocationCmb1;
+    private ComboBox<String> apptLocationCmb1;
 
     @FXML
-    private ComboBox<?> apptLocationCmb2;
+    private ComboBox<String> apptLocationCmb2;
 
     @FXML
     private DatePicker apptStartTimeDt;
 
     @FXML
-    private ComboBox<?> apptStartTimeHHCmb;
+    private ComboBox<String> apptStartTimeHHCmb;
 
     @FXML
-    private ComboBox<?> apptStartTimeMMCmb;
+    private ComboBox<String> apptStartTimeMMCmb;
 
     @FXML
-    private ComboBox<?> apptStartTimeSSCmb;
+    private ComboBox<String> apptStartTimeSSCmb;
 
     @FXML
     private TextField apptTitleTxt;
 
     @FXML
-    private ComboBox<?> apptTypeCmb;
+    private ComboBox<String> apptTypeCmb;
 
     @FXML
-    private ComboBox<?> apptUserIDCmb;
+    private ComboBox<String> apptUserIDCmb;
 
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
@@ -91,8 +94,31 @@ public class ModifyAppointmentController implements Initializable {
         stage.show();
     }
 
+    private void getLocation1FromLocation2() {
+        try {
+            String location2 = apptLocationCmb2.getValue();
+            //System.out.println(customerStateCmb.getValue());
+
+            String sql = "SELECT Country "
+                    + "FROM first_level_divisions, countries "
+                    + "WHERE first_level_divisions.Country_ID = countries.Country_ID "
+                    + "AND first_level_divisions.Division = \"" + location2 + "\"";
+
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            apptLocationCmb1.setValue((rs.getString("Country")));
+
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
 
     }
 }
