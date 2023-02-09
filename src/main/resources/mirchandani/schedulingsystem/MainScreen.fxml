@@ -63,6 +63,11 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" prefHeight="41.0" prefWidth="1000.0" spacing="20.0">
                <children>
+                  <Label fx:id="customersExLbl" prefHeight="17.0" prefWidth="140.0">
+                     <HBox.margin>
+                        <Insets right="95.0" />
+                     </HBox.margin>
+                  </Label>
                   <Button mnemonicParsing="false" onAction="#onActionAddAppointment" prefWidth="150.0" text="Add Appointment" />
                   <Button mnemonicParsing="false" onAction="#onActionAddCustomer" prefWidth="150.0" text="Add Customer" />
                   <Button mnemonicParsing="false" onAction="#onActionUpdateCustomer" prefWidth="150.0" text="Update Customer" />
@@ -96,7 +101,7 @@
                               <ToggleGroup fx:id="appointmentTG" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="byCustomerRBtn" mnemonicParsing="false" text="By Customer" toggleGroup="$appointmentTG" />
+                        <RadioButton fx:id="byCustomerRBtn" mnemonicParsing="false" text="By Customer" toggleGroup="$appointmentTG" visible="false" />
                      </children>
                      <HBox.margin>
                         <Insets bottom="5.0" />
@@ -113,7 +118,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_RIGHT" prefHeight="80.0" prefWidth="228.0">
                      <children>
-                        <DatePicker fx:id="appointmentDatePicker" />
+                        <DatePicker fx:id="appointmentDatePicker" visible="false" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -149,6 +154,11 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="317.0" prefHeight="41.0" prefWidth="1000.0" spacing="20.0">
                <children>
+                  <Label fx:id="appointmentsExLbl" prefHeight="17.0" prefWidth="140.0">
+                     <HBox.margin>
+                        <Insets right="435.0" />
+                     </HBox.margin>
+                  </Label>
                   <Button mnemonicParsing="false" onAction="#onActionUpdateAppointment" prefWidth="150.0" text="Update Appointment" />
                   <Button mnemonicParsing="false" onAction="#onActionDeleteAppointment" prefWidth="150.0" text="Delete Appointment" />
                </children>

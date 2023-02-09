@@ -96,8 +96,11 @@ public class MainScreenController implements Initializable {
     @FXML
     private RadioButton veiwAllRBtn;
 
-    public MainScreenController() {
-    }
+    @FXML
+    private Label customersExLbl;
+
+    @FXML
+    private Label appointmentsExLbl;
 
     @FXML
     public void onActionAddAppointment(ActionEvent event) throws IOException {
@@ -120,10 +123,24 @@ public class MainScreenController implements Initializable {
     @FXML
     public void onActionDeleteAppointment(ActionEvent event) {
 
+        appointmentsExLbl.setText("");
+
+        if(appointmentsTableView.getSelectionModel().getSelectedItem() == null) {
+            appointmentsExLbl.setText("Please select a customer");
+            return;}
+
+
+
     }
 
     @FXML
     public void onActionDeleteCustomer(ActionEvent event) {
+
+        customersExLbl.setText("");
+
+        if(customersTableView.getSelectionModel().getSelectedItem() == null) {
+            customersExLbl.setText("Please select a customer");
+            return;}
 
     }
 
@@ -139,6 +156,12 @@ public class MainScreenController implements Initializable {
     @FXML
     public void onActionUpdateAppointment(ActionEvent event) throws IOException {
 
+        appointmentsExLbl.setText("");
+
+        if(appointmentsTableView.getSelectionModel().getSelectedItem() == null) {
+            appointmentsExLbl.setText("Please select a customer");
+            return;}
+
         Appointment clickedAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
         ModifyAppointmentController.updateAppointment(clickedAppointment);
         //System.out.println(appointmentsTableView.getSelectionModel().getSelectedItem());
@@ -151,6 +174,12 @@ public class MainScreenController implements Initializable {
 
     @FXML
     public void onActionUpdateCustomer(ActionEvent event) throws IOException {
+
+        customersExLbl.setText("");
+
+        if(customersTableView.getSelectionModel().getSelectedItem() == null) {
+            customersExLbl.setText("Please select a customer");
+            return;}
 
         Customer clickedCustomer = customersTableView.getSelectionModel().getSelectedItem();
         ModifyCustomerController.updateCustomer(clickedCustomer);
