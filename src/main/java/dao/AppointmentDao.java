@@ -101,4 +101,13 @@ public abstract class AppointmentDao {
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
+
+    public static int deleteAppointment(int appointmentId) throws SQLException {
+        String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, appointmentId);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+
 }

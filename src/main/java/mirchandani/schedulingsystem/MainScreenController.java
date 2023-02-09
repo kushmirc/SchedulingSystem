@@ -16,7 +16,9 @@ import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -121,7 +123,7 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    public void onActionDeleteAppointment(ActionEvent event) {
+    public void onActionDeleteAppointment(ActionEvent event) throws SQLException {
 
         appointmentsExLbl.setText("");
 
@@ -130,7 +132,20 @@ public class MainScreenController implements Initializable {
             return;}
 
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Appointments");
+        alert.setHeaderText("Delete");
+        alert.setContentText("Are you sure you want to delete this appointment?");
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            AppointmentDao.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getId());
+            appointmentsExLbl.setText("Appointment deleted");
+        } else {
+            appointmentsExLbl.setText("Appointment not deleted");
+        }
+
+        initializeAppointments();
     }
 
     @FXML
@@ -191,8 +206,7 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void initializeCustomers() {
         try {
             customersTableView.setItems(CustomerDao.getAllCustomers());
 
@@ -206,7 +220,9 @@ public class MainScreenController implements Initializable {
                 Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
 
+    private void initializeAppointments() {
         try {
             appointmentsTableView.setItems(AppointmentDao.getAllAppointments());
 
@@ -224,5 +240,13 @@ public class MainScreenController implements Initializable {
                 Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        initializeCustomers();
+        initializeAppointments();
+
     }
 }
