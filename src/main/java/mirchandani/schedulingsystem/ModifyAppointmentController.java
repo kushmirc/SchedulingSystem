@@ -20,6 +20,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -104,7 +105,29 @@ public class ModifyAppointmentController implements Initializable {
     }
 
     @FXML
-    public void onActionSaveAppointment(ActionEvent event) throws IOException {
+    public void onActionSaveAppointment(ActionEvent event) throws IOException, SQLException {
+
+        String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
+        //System.out.println(startRaw);
+        Timestamp startStamp = Timestamp.valueOf(startRaw);
+        //System.out.println(startStamp);
+
+        String endRaw = apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue();
+        //System.out.println(endRaw);
+        Timestamp endStamp = Timestamp.valueOf(endRaw);
+
+        String contact = apptContactCmb.getValue();
+        String sql = "SELECT Contact_ID "
+                + "FROM contacts "
+                + "WHERE Contact_Name = \"" + contact + "\"";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+
+        //System.out.println(endStamp);
+
+        AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startStamp, endStamp, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
