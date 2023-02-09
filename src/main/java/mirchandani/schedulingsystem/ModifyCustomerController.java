@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -185,8 +186,6 @@ catch (Exception e) {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
 
         customerIDTxt.setText(String.valueOf(loadedCustomer.getId()));
         customerNameTxt.setText(String.valueOf(loadedCustomer.getName()));

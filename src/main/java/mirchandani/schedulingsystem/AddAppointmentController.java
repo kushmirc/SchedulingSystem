@@ -100,9 +100,19 @@ public class AddAppointmentController implements Initializable {
         String endRaw = apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue();
         //System.out.println(endRaw);
         Timestamp endStamp = Timestamp.valueOf(endRaw);
+
+        String contact = apptContactCmb.getValue();
+        String sql = "SELECT Contact_ID "
+                + "FROM contacts "
+                + "WHERE Contact_Name = \"" + contact + "\"";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+
         //System.out.println(endStamp);
 
-        AppointmentDao.insertAppointment(apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startStamp, endStamp, Integer.valueOf(apptCustomerIDCmb.getValue()),1,1);
+        AppointmentDao.insertAppointment(apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startStamp, endStamp, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();

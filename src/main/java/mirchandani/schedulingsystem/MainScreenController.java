@@ -138,6 +138,10 @@ public class MainScreenController implements Initializable {
 
     @FXML
     public void onActionUpdateAppointment(ActionEvent event) throws IOException {
+
+        Appointment clickedAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
+        ModifyAppointmentController.updateAppointment(clickedAppointment);
+        //System.out.println(appointmentsTableView.getSelectionModel().getSelectedItem());
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("ModifyAppointment.fxml"));
