@@ -136,6 +136,21 @@ public class ModifyAppointmentController implements Initializable {
         stage.show();
     }
 
+    private String getContactFromContactId() throws SQLException {
+
+        int contactId = loadedAppointment.getContactId();
+
+        String sql = "SELECT Contact_Name "
+                + "FROM contacts "
+                + "WHERE Contact_ID = \"" + contactId + "\"";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        //System.out.println(rs.getString("Division"));
+        return rs.getString("Contact_Name");
+    }
+
     private void getLocation1FromLocation2() {
         try {
             String location2 = loadedAppointment.getLocation();
@@ -288,7 +303,11 @@ public class ModifyAppointmentController implements Initializable {
         apptEndTimeSSCmb.setValue((String.valueOf(loadedAppointment.getEnd())).substring(17,19));
         apptCustomerIDCmb.setValue(String.valueOf(loadedAppointment.getCustomerId()));
         apptUserIDCmb.setValue(String.valueOf(loadedAppointment.getUserId()));
-        apptContactCmb.setValue(String.valueOf(loadedAppointment.getContactId()));
+        try {
+            apptContactCmb.setValue(String.valueOf(getContactFromContactId()));
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
         getLocation1FromLocation2();
         initializeLocation1();
