@@ -110,6 +110,31 @@ public abstract class AppointmentDao {
         return rowsAffected;
     }
 
+    public static ObservableList<Appointment> allAppointmentsByType = FXCollections.observableArrayList();
+
+    public static ObservableList<Appointment> appointmentsByType(String selectedType) throws SQLException {
+        String sql = "SELECT * FROM appointments WHERE Type = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, selectedType);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int appointmentId = rs.getInt("Appointment_ID");
+            String appointmentTitle = rs.getString("Title");
+            String appointmentDescription = rs.getString("Description");
+            String appointmentLocation = rs.getString("Location");
+            String appointmentType = rs.getString("Type");
+            Timestamp appointmentStart = rs.getTimestamp("Start");
+            Timestamp appointmentEnd = rs.getTimestamp("End");
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
+            int contactId = rs.getInt("Contact_ID");
+
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStart, appointmentEnd, customerId, userId, contactId);
+            allAppointmentsByType.add(appointmentResult);
+        }
+        return allAppointmentsByType;
+    }
+
     public static ObservableList<Appointment> appointmentsByMonth(String selectedTimestamp) throws SQLException {
         ObservableList<Appointment> allAppointmentsByMonth = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE SUBSTRING(Start,6,2) = ?";
@@ -133,6 +158,30 @@ public abstract class AppointmentDao {
         }
         //System.out.println(allAppointmentsByCustomerId.size());
         return allAppointmentsByMonth;
+    }
+
+    public static ObservableList<Appointment> appointmentsByContact(String selectedContact) throws SQLException {
+        ObservableList<Appointment> allAppointmentsByContact = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments WHERE Contact_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, selectedContact);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int appointmentId = rs.getInt("Appointment_ID");
+            String appointmentTitle = rs.getString("Title");
+            String appointmentDescription = rs.getString("Description");
+            String appointmentLocation = rs.getString("Location");
+            String appointmentType = rs.getString("Type");
+            Timestamp appointmentStart = rs.getTimestamp("Start");
+            Timestamp appointmentEnd = rs.getTimestamp("End");
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
+            int contactId = rs.getInt("Contact_ID");
+
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStart, appointmentEnd, customerId, userId, contactId);
+            allAppointmentsByContact.add(appointmentResult);
+        }
+        return allAppointmentsByContact;
     }
 
     public static ObservableList<Appointment> appointmentsByCustomerId(int selectedCustomer) throws SQLException {

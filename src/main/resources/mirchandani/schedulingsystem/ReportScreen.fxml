@@ -36,7 +36,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByTypeCmb" onAction="#onActionSelectType" prefHeight="25.0" prefWidth="121.0" />
+                  <ComboBox fx:id="appointmentsByTypeCmb" onAction="#onActionSelectType" prefHeight="26.0" prefWidth="175.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />
@@ -88,7 +88,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByMonthCmb" onAction="#onActionSelectMonth" prefHeight="25.0" prefWidth="121.0" />
+                  <ComboBox fx:id="appointmentsByMonthCmb" onAction="#onActionSelectMonth" prefHeight="26.0" prefWidth="150.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />
@@ -137,7 +137,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByContactCmb" onAction="#onActionSelectContact" prefHeight="25.0" prefWidth="121.0" />
+                  <ComboBox fx:id="appointmentsByContactCmb" onAction="#onActionSelectContact" prefHeight="26.0" prefWidth="175.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />
@@ -186,7 +186,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByCustomerCmb" onAction="#onActionSelectCustomer" prefHeight="26.0" prefWidth="196.0" />
+                  <ComboBox fx:id="appointmentsByCustomerCmb" onAction="#onActionSelectCustomer" prefHeight="26.0" prefWidth="175.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />

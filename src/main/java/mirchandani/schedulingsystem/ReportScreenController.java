@@ -177,13 +177,26 @@ public class ReportScreenController implements Initializable {
     private Button returnToMainBtn;
 
     @FXML
-    void onActionSelectType(ActionEvent event) {
+    void onActionSelectType(ActionEvent event) throws SQLException {
 
+        appointmentsByTypeTableView.setItems(AppointmentDao.appointmentsByType(appointmentsByTypeCmb.getValue()));
+
+        System.out.println(AppointmentDao.allAppointmentsByType.size());
+
+        apptByTypeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apptByTypeTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptByTypeDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptByTypeLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptByTypeTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptByTypeStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptByTypeEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptByTypeCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptByTypeContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
     @FXML
     void onActionSelectMonth(ActionEvent event) throws SQLException {
 
-        System.out.println(appointmentsByMonthCmb.getValue().substring(0,2));
+        //System.out.println(appointmentsByMonthCmb.getValue().substring(0,2));
 
         appointmentsByMonthTableView.setItems(AppointmentDao.appointmentsByMonth(appointmentsByMonthCmb.getValue().substring(0,2)));
 
@@ -199,9 +212,38 @@ public class ReportScreenController implements Initializable {
     }
 
     @FXML
-    void onActionSelectContact(ActionEvent event) {
+    void onActionSelectContact(ActionEvent event) throws SQLException {
 
+        String contact = appointmentsByContactCmb.getValue();
+        //System.out.println(contact);
+
+        String sql = "SELECT Contact_ID "
+                + "FROM contacts "
+                + "WHERE Contact_Name = \"" + contact + "\"";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        //System.out.println(rs.getString("Contact_ID"));
+
+        appointmentsByContactTableView.setItems((AppointmentDao.appointmentsByContact(rs.getString("Contact_ID"))));
+
+        //rs.next();
+        //System.out.println(rs.getString("Division"));
+        //return rs.getString("Division");
+
+        apptByContactIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apptByContactTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptByContactDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptByContactLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptByContactTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptByContactStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptByContactEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptByContactCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptByContactContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
+
+
 
     @FXML
     void onActionSelectCustomer(ActionEvent event) throws SQLException {
@@ -247,7 +289,11 @@ public class ReportScreenController implements Initializable {
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                appointmentsByTypeCmb.getItems().add(rs.getString("Type"));
+
+                if (appointmentsByTypeCmb.getItems().contains(rs.getString("Type"))) {}
+                else {appointmentsByTypeCmb.getItems().add(rs.getString("Type"));}
+
+                //appointmentsByTypeCmb.getItems().add(rs.getString("Type"));
             }
         }
         catch (Exception e) {
@@ -307,6 +353,8 @@ public class ReportScreenController implements Initializable {
         initializeAppointmentsByMonthCmb();
         initializeAppointmentsByContactCmb();
         initializeAppointmentsByCustomerCmb();
+
+
 
     }
 }
