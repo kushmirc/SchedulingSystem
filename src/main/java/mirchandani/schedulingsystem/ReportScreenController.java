@@ -179,9 +179,10 @@ public class ReportScreenController implements Initializable {
     @FXML
     void onActionSelectType(ActionEvent event) throws SQLException {
 
+        AppointmentDao.allAppointmentsByType.clear();
         appointmentsByTypeTableView.setItems(AppointmentDao.appointmentsByType(appointmentsByTypeCmb.getValue()));
 
-        System.out.println(AppointmentDao.allAppointmentsByType.size());
+        appointmentsByTypeCountTxt.setText(String.valueOf(AppointmentDao.allAppointmentsByType.size()));
 
         apptByTypeIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         apptByTypeTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
