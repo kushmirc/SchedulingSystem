@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mirchandani.schedulingsystem.ReportScreenController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mirchandani.schedulingsystem.ReportScreenController">
    <children>
       <VBox prefHeight="800.0" prefWidth="1000.0">
          <children>
@@ -29,7 +36,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByTypeCmb" prefHeight="25.0" prefWidth="121.0" />
+                  <ComboBox fx:id="appointmentsByTypeCmb" onAction="#onActionSelectType" prefHeight="25.0" prefWidth="121.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />
@@ -40,7 +47,7 @@
             </HBox>
             <HBox layoutX="40.0" layoutY="89.0" prefHeight="90.0" prefWidth="940.0">
                <children>
-                  <TableView fx:id="customersTableView1" prefHeight="90.0" prefWidth="940.0">
+                  <TableView fx:id="appointmentsByTypeTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByTypeIdCol" prefWidth="92.0" text="Appointment ID" />
                         <TableColumn fx:id="apptByTypeTitleCol" prefWidth="112.0" text="Title" />
@@ -81,7 +88,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByMonthCmb" prefHeight="25.0" prefWidth="121.0" />
+                  <ComboBox fx:id="appointmentsByMonthCmb" onAction="#onActionSelectMonth" prefHeight="25.0" prefWidth="121.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />
@@ -92,7 +99,7 @@
             </HBox>
             <HBox prefHeight="90.0" prefWidth="940.0">
                <children>
-                  <TableView fx:id="customersTableView11" prefHeight="90.0" prefWidth="940.0">
+                  <TableView fx:id="appointmentsByMonthTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByMonthIdCol" prefWidth="92.0" text="Appointment ID" />
                         <TableColumn fx:id="apptByMonthTitleCol" prefWidth="112.0" text="Title" />
@@ -130,7 +137,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByContactCmb" prefHeight="25.0" prefWidth="121.0" />
+                  <ComboBox fx:id="appointmentsByContactCmb" onAction="#onActionSelectContact" prefHeight="25.0" prefWidth="121.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />
@@ -141,7 +148,7 @@
             </HBox>
             <HBox prefHeight="90.0" prefWidth="940.0">
                <children>
-                  <TableView fx:id="customersTableView12" prefHeight="90.0" prefWidth="940.0">
+                  <TableView fx:id="appointmentsByContactTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByContactIdCol" prefWidth="92.0" text="Appointment ID" />
                         <TableColumn fx:id="apptByContactTitleCol" prefWidth="112.0" text="Title" />
@@ -179,7 +186,7 @@
                   <Insets left="30.0" />
                </padding>
                <children>
-                  <ComboBox fx:id="appointmentsByCustomerCmb1" prefHeight="25.0" prefWidth="121.0" />
+                  <ComboBox fx:id="appointmentsByCustomerCmb" onAction="#onActionSelectCustomer" prefHeight="26.0" prefWidth="196.0" />
                   <Label prefHeight="17.0" prefWidth="60.0" text="Count:">
                      <padding>
                         <Insets left="20.0" />
@@ -190,7 +197,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="472.0" prefHeight="90.0" prefWidth="940.0">
                <children>
-                  <TableView fx:id="customersTableView121" prefHeight="90.0" prefWidth="940.0">
+                  <TableView fx:id="appointmentsByCustomerTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByCustomerIdCol" prefWidth="92.0" text="Appointment ID" />
                         <TableColumn fx:id="apptByCustomerTitleCol" prefWidth="112.0" text="Title" />

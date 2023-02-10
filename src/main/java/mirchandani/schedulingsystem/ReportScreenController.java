@@ -1,5 +1,6 @@
 package mirchandani.schedulingsystem;
 
+import dao.AppointmentDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,10 +8,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
+import utility.JDBC;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 public class ReportScreenController implements Initializable {
@@ -22,151 +30,207 @@ public class ReportScreenController implements Initializable {
     Parent scene;
 
     @FXML
-    private ComboBox<?> appointmentsByContactCmb;
+    private ComboBox<String> appointmentsByContactCmb;
 
     @FXML
     private TextField appointmentsByContactCountTxt;
 
     @FXML
-    private ComboBox<?> appointmentsByCustomerCmb1;
+    private ComboBox<String> appointmentsByCustomerCmb;
 
     @FXML
     private TextField appointmentsByCustomerCountTxt1;
 
     @FXML
-    private ComboBox<?> appointmentsByMonthCmb;
+    private ComboBox<String> appointmentsByMonthCmb;
 
     @FXML
     private TextField appointmentsByMonthCountTxt;
 
     @FXML
-    private ComboBox<?> appointmentsByTypeCmb;
+    private ComboBox<String> appointmentsByTypeCmb;
 
     @FXML
     private TextField appointmentsByTypeCountTxt;
 
     @FXML
-    private TableColumn<?, ?> apptByContactContactIdCol;
+    private TableColumn<Appointment, Integer> apptByContactContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactCustomerIdCol;
+    private TableColumn<Appointment, Integer> apptByContactCustomerIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactDescriptionCol;
+    private TableColumn<Appointment, String> apptByContactDescriptionCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactEndCol;
+    private TableColumn<Appointment, Timestamp> apptByContactEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactIdCol;
+    private TableColumn<Appointment, Integer> apptByContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactLocationCol;
+    private TableColumn<Appointment, String> apptByContactLocationCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactStartCol;
+    private TableColumn<Appointment, Timestamp> apptByContactStartCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactTitleCol;
+    private TableColumn<Appointment, String> apptByContactTitleCol;
 
     @FXML
-    private TableColumn<?, ?> apptByContactTypeCol;
+    private TableColumn<Appointment, String> apptByContactTypeCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerContactIdCol;
+    private TableColumn<Appointment, Integer> apptByCustomerContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerCustomerIdCol;
+    private TableColumn<Appointment, Integer> apptByCustomerCustomerIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerDescriptionCol;
+    private TableColumn<Appointment, String> apptByCustomerDescriptionCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerEndCol;
+    private TableColumn<Appointment, Timestamp> apptByCustomerEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerIdCol;
+    private TableColumn<Appointment, Integer> apptByCustomerIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerLocationCol;
+    private TableColumn<Appointment, String> apptByCustomerLocationCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerStartCol;
+    private TableColumn<Appointment, Timestamp> apptByCustomerStartCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerTitleCol;
+    private TableColumn<Appointment, String> apptByCustomerTitleCol;
 
     @FXML
-    private TableColumn<?, ?> apptByCustomerTypeCol;
+    private TableColumn<Appointment, String> apptByCustomerTypeCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthContactIdCol;
+    private TableColumn<Appointment, Integer> apptByMonthContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthCustomerIdCol;
+    private TableColumn<Appointment, Integer> apptByMonthCustomerIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthDescriptionCol;
+    private TableColumn<Appointment, String> apptByMonthDescriptionCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthEndCol;
+    private TableColumn<Appointment, Timestamp> apptByMonthEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthIdCol;
+    private TableColumn<Appointment, Integer> apptByMonthIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthLocationCol;
+    private TableColumn<Appointment, String> apptByMonthLocationCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthStartCol;
+    private TableColumn<Appointment, Timestamp> apptByMonthStartCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthTitleCol;
+    private TableColumn<Appointment, String> apptByMonthTitleCol;
 
     @FXML
-    private TableColumn<?, ?> apptByMonthTypeCol;
+    private TableColumn<Appointment, String> apptByMonthTypeCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeContactIdCol;
+    private TableColumn<Appointment, Integer> apptByTypeContactIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeCustomerIdCol;
+    private TableColumn<Appointment, Integer> apptByTypeCustomerIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeDescriptionCol;
+    private TableColumn<Appointment, String> apptByTypeDescriptionCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeEndCol;
+    private TableColumn<Appointment, Timestamp> apptByTypeEndCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeIdCol;
+    private TableColumn<Appointment, Integer> apptByTypeIdCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeLocationCol;
+    private TableColumn<Appointment, String> apptByTypeLocationCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeStartCol;
+    private TableColumn<Appointment, Timestamp> apptByTypeStartCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeTitleCol;
+    private TableColumn<Appointment, String> apptByTypeTitleCol;
 
     @FXML
-    private TableColumn<?, ?> apptByTypeTypeCol;
+    private TableColumn<Appointment, String> apptByTypeTypeCol;
 
     @FXML
-    private TableView<?> customersTableView1;
+    private TableView<Appointment> appointmentsByTypeTableView;
 
     @FXML
-    private TableView<?> customersTableView11;
+    private TableView<Appointment> appointmentsByMonthTableView;
 
     @FXML
-    private TableView<?> customersTableView12;
+    private TableView<Appointment> appointmentsByContactTableView;
 
     @FXML
-    private TableView<?> customersTableView121;
+    private TableView<Appointment> appointmentsByCustomerTableView;
 
     @FXML
     private Button returnToMainBtn;
+
+    @FXML
+    void onActionSelectType(ActionEvent event) {
+
+    }
+    @FXML
+    void onActionSelectMonth(ActionEvent event) throws SQLException {
+
+        System.out.println(appointmentsByMonthCmb.getValue().substring(0,2));
+
+        appointmentsByMonthTableView.setItems(AppointmentDao.appointmentsByMonth(appointmentsByMonthCmb.getValue().substring(0,2)));
+
+        apptByMonthIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apptByMonthTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptByMonthDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptByMonthLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptByMonthTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptByMonthStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptByMonthEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptByMonthCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptByMonthContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+    }
+
+    @FXML
+    void onActionSelectContact(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionSelectCustomer(ActionEvent event) throws SQLException {
+
+        /*String customer = appointmentsByCustomerCmb.getValue();
+
+        String sql = "SELECT Customer_ID "
+                + "FROM customers "
+                + "WHERE Customer_Name = \"" + customer + "\"";
+
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+
+        appointmentsByCustomerTableView.setItems(AppointmentDao.appointmentsByCustomerId(rs.getInt("Customer_ID")));*/
+        String customerIdAndName = appointmentsByCustomerCmb.getValue();
+        String customerIdString = customerIdAndName.split(" - ")[0];
+        appointmentsByCustomerTableView.setItems(AppointmentDao.appointmentsByCustomerId(Integer.parseInt(customerIdString)));
+
+        apptByCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apptByCustomerTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptByCustomerDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptByCustomerLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptByCustomerTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptByCustomerStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptByCustomerEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptByCustomerCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptByCustomerContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+    }
 
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
@@ -177,8 +241,72 @@ public class ReportScreenController implements Initializable {
         stage.show();
     }
 
+    private void initializeAppointmentsByTypeCmb() {
+        try{
+            String sql = "SELECT Type FROM appointments";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                appointmentsByTypeCmb.getItems().add(rs.getString("Type"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void initializeAppointmentsByMonthCmb() {
+        /*try{
+            String sql = "SELECT Start FROM appointments";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                appointmentsByMonthCmb.getItems().add(rs.getString("Start").substring(5,7));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }*/
+
+        appointmentsByMonthCmb.getItems().addAll(
+                "01 - January", "02 - February", "03 - March", "04 - April", "05 - May", "06 - June", "07 - July", "08 - August", "09 - September", "10 - October", "11 - November", "12 - December");
+    }
+    private void initializeAppointmentsByContactCmb() {
+        try{
+            String sql = "SELECT Contact_Name FROM contacts";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                appointmentsByContactCmb.getItems().add(rs.getString("Contact_Name"));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void initializeAppointmentsByCustomerCmb() {
+        try{
+            String sql = "SELECT Customer_ID, Customer_Name FROM customers";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                appointmentsByCustomerCmb.getItems().add((rs.getString("Customer_ID") + " - " + rs.getString("Customer_Name")));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        initializeAppointmentsByTypeCmb();
+        initializeAppointmentsByMonthCmb();
+        initializeAppointmentsByContactCmb();
+        initializeAppointmentsByCustomerCmb();
 
     }
 }

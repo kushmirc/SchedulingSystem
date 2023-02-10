@@ -33,6 +33,7 @@ public class Login extends Application {
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
 
+        //AppointmentDao.appointmentsByCustomerId(2);
 
         //FruitsQuery.insert("Cherries", 1);
 

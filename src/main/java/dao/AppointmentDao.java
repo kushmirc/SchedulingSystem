@@ -110,4 +110,54 @@ public abstract class AppointmentDao {
         return rowsAffected;
     }
 
+    public static ObservableList<Appointment> appointmentsByMonth(String selectedTimestamp) throws SQLException {
+        ObservableList<Appointment> allAppointmentsByMonth = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments WHERE SUBSTRING(Start,6,2) = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, selectedTimestamp);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int appointmentId = rs.getInt("Appointment_ID");
+            String appointmentTitle = rs.getString("Title");
+            String appointmentDescription = rs.getString("Description");
+            String appointmentLocation = rs.getString("Location");
+            String appointmentType = rs.getString("Type");
+            Timestamp appointmentStart = rs.getTimestamp("Start");
+            Timestamp appointmentEnd = rs.getTimestamp("End");
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
+            int contactId = rs.getInt("Contact_ID");
+
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStart, appointmentEnd, customerId, userId, contactId);
+            allAppointmentsByMonth.add(appointmentResult);
+        }
+        //System.out.println(allAppointmentsByCustomerId.size());
+        return allAppointmentsByMonth;
+    }
+
+    public static ObservableList<Appointment> appointmentsByCustomerId(int selectedCustomer) throws SQLException {
+        ObservableList<Appointment> allAppointmentsByCustomerId = FXCollections.observableArrayList();
+        String sql = "SELECT appointments.* FROM appointments, customers WHERE appointments.Customer_ID = customers.Customer_ID AND customers.Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, selectedCustomer);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int appointmentId = rs.getInt("Appointment_ID");
+            String appointmentTitle = rs.getString("Title");
+            String appointmentDescription = rs.getString("Description");
+            String appointmentLocation = rs.getString("Location");
+            String appointmentType = rs.getString("Type");
+            Timestamp appointmentStart = rs.getTimestamp("Start");
+            Timestamp appointmentEnd = rs.getTimestamp("End");
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
+            int contactId = rs.getInt("Contact_ID");
+
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStart, appointmentEnd, customerId, userId, contactId);
+             allAppointmentsByCustomerId.add(appointmentResult);
+        }
+        //System.out.println(allAppointmentsByCustomerId.size());
+        return allAppointmentsByCustomerId;
+    }
+
 }
