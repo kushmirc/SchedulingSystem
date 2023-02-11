@@ -20,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
@@ -92,14 +94,15 @@ public class AddAppointmentController implements Initializable {
     @FXML
     public void onActionSaveAppointment(ActionEvent event) throws IOException, SQLException {
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
         //System.out.println(startRaw);
-        Timestamp startStamp = Timestamp.valueOf(startRaw);
+        LocalDateTime startStamp = LocalDateTime.parse(startRaw, formatter);
         //System.out.println(startStamp);
 
         String endRaw = apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue();
         //System.out.println(endRaw);
-        Timestamp endStamp = Timestamp.valueOf(endRaw);
+        LocalDateTime endStamp = LocalDateTime.parse(endRaw, formatter);
 
         String contact = apptContactCmb.getValue();
         String sql = "SELECT Contact_ID "

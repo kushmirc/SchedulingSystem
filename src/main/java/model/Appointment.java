@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Appointment {
 
@@ -17,9 +18,9 @@ public class Appointment {
 
     private String type;
 
-    private Timestamp start;
+    private LocalDateTime start;
 
-    private Timestamp end;
+    private LocalDateTime end;
 
     private int customerId;
 
@@ -28,7 +29,7 @@ public class Appointment {
     private int contactId;
 
 
-    public Appointment(int id, String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId) {
+    public Appointment(int id, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -81,19 +82,19 @@ public class Appointment {
         this.type = type;
     }
 
-    public Timestamp getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(Timestamp start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public Timestamp getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Timestamp end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 

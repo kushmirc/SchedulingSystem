@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public abstract class AppointmentDao {
 
@@ -25,8 +26,8 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            Timestamp appointmentStart = rs.getTimestamp("Start");
-            Timestamp appointmentEnd = rs.getTimestamp("End");
+            LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
@@ -54,8 +55,8 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            Timestamp appointmentStart = rs.getTimestamp("Start");
-            Timestamp appointmentEnd = rs.getTimestamp("End");
+            LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
@@ -69,15 +70,15 @@ public abstract class AppointmentDao {
 
     }
 
-    public static int insertAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId) throws SQLException {
+    public static int insertAppointment(String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) throws SQLException {
         String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);
         ps.setString(2, description);
         ps.setString(3, location);
         ps.setString(4, type);
-        ps.setTimestamp(5, start);
-        ps.setTimestamp(6, end);
+        ps.setTimestamp(5, Timestamp.valueOf(start));
+        ps.setTimestamp(6, Timestamp.valueOf(end));
         ps.setInt(7, customerId);
         ps.setInt(8, userId);
         ps.setInt(9, contactId);
@@ -85,15 +86,15 @@ public abstract class AppointmentDao {
         return rowsAffected;
     }
 
-    public static int updateAppointment(int appointmentId, String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId) throws SQLException {
+    public static int updateAppointment(int appointmentId, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) throws SQLException {
         String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);
         ps.setString(2, description);
         ps.setString(3, location);
         ps.setString(4, type);
-        ps.setTimestamp(5, start);
-        ps.setTimestamp(6, end);
+        ps.setTimestamp(5, Timestamp.valueOf(start));
+        ps.setTimestamp(6, Timestamp.valueOf(end));
         ps.setInt(7, customerId);
         ps.setInt(8, userId);
         ps.setInt(9, contactId);
@@ -123,8 +124,8 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            Timestamp appointmentStart = rs.getTimestamp("Start");
-            Timestamp appointmentEnd = rs.getTimestamp("End");
+            LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
@@ -137,10 +138,10 @@ public abstract class AppointmentDao {
 
     public static ObservableList<Appointment> allAppointmentsByMonth = FXCollections.observableArrayList();
 
-    public static ObservableList<Appointment> appointmentsByMonth(String selectedTimestamp) throws SQLException {
+    public static ObservableList<Appointment> appointmentsByMonth(String selectedLocalDateTime) throws SQLException {
         String sql = "SELECT * FROM appointments WHERE SUBSTRING(Start,6,2) = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, selectedTimestamp);
+        ps.setString(1, selectedLocalDateTime);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             int appointmentId = rs.getInt("Appointment_ID");
@@ -148,8 +149,8 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            Timestamp appointmentStart = rs.getTimestamp("Start");
-            Timestamp appointmentEnd = rs.getTimestamp("End");
+            LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
@@ -174,8 +175,8 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            Timestamp appointmentStart = rs.getTimestamp("Start");
-            Timestamp appointmentEnd = rs.getTimestamp("End");
+            LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
@@ -199,8 +200,8 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            Timestamp appointmentStart = rs.getTimestamp("Start");
-            Timestamp appointmentEnd = rs.getTimestamp("End");
+            LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");

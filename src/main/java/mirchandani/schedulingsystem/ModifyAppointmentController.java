@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentController implements Initializable {
@@ -109,12 +110,12 @@ public class ModifyAppointmentController implements Initializable {
 
         String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
         //System.out.println(startRaw);
-        Timestamp startStamp = Timestamp.valueOf(startRaw);
+        LocalDateTime startStamp = LocalDateTime.parse(startRaw);
         //System.out.println(startStamp);
 
         String endRaw = apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue();
         //System.out.println(endRaw);
-        Timestamp endStamp = Timestamp.valueOf(endRaw);
+        LocalDateTime endStamp = LocalDateTime.parse(endRaw);
 
         String contact = apptContactCmb.getValue();
         String sql = "SELECT Contact_ID "
