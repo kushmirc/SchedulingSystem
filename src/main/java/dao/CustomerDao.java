@@ -34,6 +34,7 @@ public abstract class CustomerDao {
 
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();

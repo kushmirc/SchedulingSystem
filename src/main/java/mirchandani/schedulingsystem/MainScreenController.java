@@ -2,6 +2,8 @@ package mirchandani.schedulingsystem;
 
 import dao.AppointmentDao;
 import dao.CustomerDao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -131,9 +133,8 @@ public class MainScreenController implements Initializable {
             appointmentsExLbl.setText("Please select an appointment");
             return;}
 
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Appointments");
+        alert.setTitle("Appointment");
         alert.setHeaderText("Delete");
         alert.setContentText("Are you sure you want to delete this appointment?");
 
@@ -149,7 +150,7 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    public void onActionDeleteCustomer(ActionEvent event) {
+    public void onActionDeleteCustomer(ActionEvent event) throws SQLException {
 
         customersExLbl.setText("");
 
@@ -157,9 +158,41 @@ public class MainScreenController implements Initializable {
             customersExLbl.setText("Please select a customer");
             return;}
 
+        ObservableList<Customer> allCustomers = CustomerDao.getAllCustomers();
+        //System.out.println(allCustomers);
+        ObservableList<Appointment> allAppointments = AppointmentDao.getAllAppointments();
+        //System.out.println(allAppointments);
+        //System.out.println(customersTableView.getSelectionModel().getSelectedItem().getId());
 
+        for (Appointment appointment : allAppointments) {
+            if ((customersTableView.getSelectionModel().getSelectedItem().getId()) == appointment.getCustomerId()) {
+                //System.out.println("Match Found");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Customer");
+                alert.setHeaderText("Delete");
+                alert.setContentText("All appointments for this customer must be deleted before the customer can be deleted.");
+                alert.showAndWait();
+                return;
+            }
+        }
 
-    }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Customer");
+            alert.setHeaderText("Delete");
+            alert.setContentText("Are you sure you want to delete this customer?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                CustomerDao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem().getId());
+                customersExLbl.setText("Customer deleted");
+            } else {
+                customersExLbl.setText("Customer not deleted");
+            }
+
+            initializeCustomers();
+
+        }
+
 
     @FXML
     public void onActionReports(ActionEvent event) throws IOException {
