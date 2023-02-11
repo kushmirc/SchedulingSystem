@@ -31,6 +31,7 @@ public abstract class CustomerDao {
         }
     }
 
+
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
         String sql = "SELECT * FROM customers";
@@ -72,6 +73,14 @@ public abstract class CustomerDao {
         ps.setString(4, phone);
         ps.setInt(5, divisionId);
         ps.setInt(6, customerId);
+        int rowsAffected = ps.executeUpdate();
+        return rowsAffected;
+    }
+
+    public static int deleteCustomer(int customerId) throws SQLException {
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerId);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }

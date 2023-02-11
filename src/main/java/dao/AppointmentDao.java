@@ -135,8 +135,9 @@ public abstract class AppointmentDao {
         return allAppointmentsByType;
     }
 
+    public static ObservableList<Appointment> allAppointmentsByMonth = FXCollections.observableArrayList();
+
     public static ObservableList<Appointment> appointmentsByMonth(String selectedTimestamp) throws SQLException {
-        ObservableList<Appointment> allAppointmentsByMonth = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE SUBSTRING(Start,6,2) = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, selectedTimestamp);
@@ -160,8 +161,9 @@ public abstract class AppointmentDao {
         return allAppointmentsByMonth;
     }
 
+    public static ObservableList<Appointment> allAppointmentsByContact = FXCollections.observableArrayList();
+
     public static ObservableList<Appointment> appointmentsByContact(String selectedContact) throws SQLException {
-        ObservableList<Appointment> allAppointmentsByContact = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE Contact_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, selectedContact);
@@ -184,8 +186,9 @@ public abstract class AppointmentDao {
         return allAppointmentsByContact;
     }
 
+    public static ObservableList<Appointment> allAppointmentsByCustomerId = FXCollections.observableArrayList();
+
     public static ObservableList<Appointment> appointmentsByCustomerId(int selectedCustomer) throws SQLException {
-        ObservableList<Appointment> allAppointmentsByCustomerId = FXCollections.observableArrayList();
         String sql = "SELECT appointments.* FROM appointments, customers WHERE appointments.Customer_ID = customers.Customer_ID AND customers.Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, selectedCustomer);

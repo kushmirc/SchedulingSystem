@@ -197,9 +197,10 @@ public class ReportScreenController implements Initializable {
     @FXML
     void onActionSelectMonth(ActionEvent event) throws SQLException {
 
-        //System.out.println(appointmentsByMonthCmb.getValue().substring(0,2));
-
+        AppointmentDao.allAppointmentsByMonth.clear();
         appointmentsByMonthTableView.setItems(AppointmentDao.appointmentsByMonth(appointmentsByMonthCmb.getValue().substring(0,2)));
+
+        appointmentsByMonthCountTxt.setText(String.valueOf((AppointmentDao.allAppointmentsByMonth.size())));
 
         apptByMonthIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         apptByMonthTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -216,7 +217,8 @@ public class ReportScreenController implements Initializable {
     void onActionSelectContact(ActionEvent event) throws SQLException {
 
         String contact = appointmentsByContactCmb.getValue();
-        //System.out.println(contact);
+
+        AppointmentDao.allAppointmentsByContact.clear();
 
         String sql = "SELECT Contact_ID "
                 + "FROM contacts "
@@ -225,13 +227,10 @@ public class ReportScreenController implements Initializable {
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         rs.next();
-        //System.out.println(rs.getString("Contact_ID"));
 
         appointmentsByContactTableView.setItems((AppointmentDao.appointmentsByContact(rs.getString("Contact_ID"))));
 
-        //rs.next();
-        //System.out.println(rs.getString("Division"));
-        //return rs.getString("Division");
+        appointmentsByContactCountTxt.setText(String.valueOf(AppointmentDao.allAppointmentsByContact.size()));
 
         apptByContactIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         apptByContactTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -260,9 +259,13 @@ public class ReportScreenController implements Initializable {
         rs.next();
 
         appointmentsByCustomerTableView.setItems(AppointmentDao.appointmentsByCustomerId(rs.getInt("Customer_ID")));*/
+        AppointmentDao.allAppointmentsByCustomerId.clear();
+
         String customerIdAndName = appointmentsByCustomerCmb.getValue();
         String customerIdString = customerIdAndName.split(" - ")[0];
         appointmentsByCustomerTableView.setItems(AppointmentDao.appointmentsByCustomerId(Integer.parseInt(customerIdString)));
+
+        appointmentsByCustomerCountTxt1.setText(String.valueOf(AppointmentDao.allAppointmentsByCustomerId.size()));
 
         apptByCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         apptByCustomerTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));

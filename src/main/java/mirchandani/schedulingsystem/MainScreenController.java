@@ -128,7 +128,7 @@ public class MainScreenController implements Initializable {
         appointmentsExLbl.setText("");
 
         if(appointmentsTableView.getSelectionModel().getSelectedItem() == null) {
-            appointmentsExLbl.setText("Please select a customer");
+            appointmentsExLbl.setText("Please select an appointment");
             return;}
 
 
@@ -156,6 +156,8 @@ public class MainScreenController implements Initializable {
         if(customersTableView.getSelectionModel().getSelectedItem() == null) {
             customersExLbl.setText("Please select a customer");
             return;}
+
+
 
     }
 
