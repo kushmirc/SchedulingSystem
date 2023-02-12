@@ -96,7 +96,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_LEFT" prefHeight="70.0" prefWidth="117.0" spacing="7.0">
                      <children>
-                        <RadioButton fx:id="veiwAllRBtn" mnemonicParsing="false" selected="true" text="View All">
+                        <RadioButton fx:id="veiwAllRBtn" mnemonicParsing="false" onAction="#onActionViewAllRBtn" selected="true" text="View All">
                            <toggleGroup>
                               <ToggleGroup fx:id="appointmentTG" />
                            </toggleGroup>
@@ -107,10 +107,10 @@
                         <Insets bottom="5.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="BOTTOM_LEFT" layoutX="489.0" layoutY="10.0" prefHeight="80.0" prefWidth="145.0" spacing="7.0">
+                  <VBox alignment="BOTTOM_LEFT" layoutX="489.0" layoutY="10.0" prefHeight="80.0" prefWidth="172.0" spacing="7.0">
                      <children>
-                        <RadioButton fx:id="byWeekRBtn" mnemonicParsing="false" text="By Week  (Mon - Sun)" toggleGroup="$appointmentTG" />
-                        <RadioButton fx:id="byMonthRBtn" mnemonicParsing="false" text="By Month" toggleGroup="$appointmentTG" />
+                        <RadioButton fx:id="byWeekRBtn" mnemonicParsing="false" onAction="#onActionByWeekRBtn" prefHeight="18.0" prefWidth="166.0" text="By Week  (next 7 days)" toggleGroup="$appointmentTG" />
+                        <RadioButton fx:id="byMonthRBtn" mnemonicParsing="false" onAction="#onActionByMonthRBtn" text=" By Month (next 30 days)" toggleGroup="$appointmentTG" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" />

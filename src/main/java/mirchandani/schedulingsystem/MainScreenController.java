@@ -107,6 +107,54 @@ public class MainScreenController implements Initializable {
     private Label appointmentsExLbl;
 
     @FXML
+    void onActionViewAllRBtn(ActionEvent event) {
+        initializeAppointments();
+    }
+
+    @FXML
+    void onActionByWeekRBtn(ActionEvent event) {
+        try {
+            appointmentsTableView.setItems(AppointmentDao.getSevenDaysAppointments());
+
+            apptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            apptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+            apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+            apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+            apptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+            apptContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+
+        } catch (
+                Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void onActionByMonthRBtn(ActionEvent event) {
+        try {
+            appointmentsTableView.setItems(AppointmentDao.getThirtyDaysAppointments());
+
+            apptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            apptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+            apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+            apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+            apptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+            apptContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+
+        } catch (
+                Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+
+    @FXML
     public void onActionAddAppointment(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();

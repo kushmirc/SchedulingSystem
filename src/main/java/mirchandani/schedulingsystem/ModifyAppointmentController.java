@@ -21,8 +21,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentController implements Initializable {
@@ -108,14 +108,39 @@ public class ModifyAppointmentController implements Initializable {
     @FXML
     public void onActionSaveAppointment(ActionEvent event) throws IOException, SQLException {
 
-        String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
         //System.out.println(startRaw);
-        LocalDateTime startStamp = LocalDateTime.parse(startRaw);
-        //System.out.println(startStamp);
+        LocalDateTime startLdt = LocalDateTime.parse(apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue(), formatter);
+        //System.out.println(startLdt);
+        ZonedDateTime startZonedLocal = startLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        //System.out.println(startZoned);
+        ZonedDateTime startZonedUtc = startZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
+        //System.out.println(utcstartZoned);
+        ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
+        LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
 
-        String endRaw = apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue();
-        //System.out.println(endRaw);
-        LocalDateTime endStamp = LocalDateTime.parse(endRaw);
+
+        LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
+        ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
+        ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
+        LocalDateTime endLdtUtc = endZonedUtc.toLocalDateTime();
+
+        LocalTime businessOpenTime = LocalTime.of(8,0);
+        //LocalDate businessOpenDate = startZonedEst.toLocalDate();
+        //LocalDateTime businessOpen = LocalDateTime.of(businessOpenDate,businessOpenTime);
+        LocalTime businessCloseTime = LocalTime.of(22,0);
+        //LocalDate businessCloseDate = endZonedEst.toLocalDate();
+        //LocalDateTime businessClose = LocalDateTime.of(businessCloseDate,businessCloseTime);
+
+        if((startZonedEst.toLocalTime().isBefore(businessOpenTime)) || (startZonedEst.toLocalTime().isAfter(businessCloseTime))|| (endZonedEst.toLocalTime().isBefore(businessOpenTime)) || (endZonedEst.toLocalTime().isAfter(businessCloseTime))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Appointment");
+            alert.setContentText("Appointments may only be scheduled during business hours (8:00am to 10:00pm EST).");
+            alert.showAndWait();
+            return;
+        }
 
         String contact = apptContactCmb.getValue();
         String sql = "SELECT Contact_ID "
@@ -128,7 +153,7 @@ public class ModifyAppointmentController implements Initializable {
 
         //System.out.println(endStamp);
 
-        AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startStamp, endStamp, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
+        AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startLdtUtc, endLdtUtc, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -268,26 +293,28 @@ public class ModifyAppointmentController implements Initializable {
 
     private void initializeTimes() {
         apptStartTimeHHCmb.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
+                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
 
         apptStartTimeMMCmb.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
+                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
 
         apptStartTimeSSCmb.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
+                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
 
         apptEndTimeHHCmb.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
+                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
 
         apptEndTimeMMCmb.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
+                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
 
         apptEndTimeSSCmb.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
+                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //System.out.println((String.valueOf(loadedAppointment.getStart())).substring(17,19));
 
         appointmentIDTxt.setText(String.valueOf(loadedAppointment.getId()));
         apptTitleTxt.setText(String.valueOf(loadedAppointment.getTitle()));
@@ -297,11 +324,15 @@ public class ModifyAppointmentController implements Initializable {
         apptStartTimeDt.setValue(LocalDate.parse(((CharSequence)String.valueOf(loadedAppointment.getStart())).subSequence(0,10)));
         apptStartTimeHHCmb.setValue((String.valueOf(loadedAppointment.getStart())).substring(11,13));
         apptStartTimeMMCmb.setValue((String.valueOf(loadedAppointment.getStart())).substring(14,16));
-        apptStartTimeSSCmb.setValue((String.valueOf(loadedAppointment.getStart())).substring(17,19));
+        try {
+        apptStartTimeSSCmb.setValue((String.valueOf(loadedAppointment.getStart())).substring(17,19));}
+        catch (Exception e) {apptStartTimeSSCmb.setValue("00");}
         apptEndTimeDt.setValue(LocalDate.parse(((CharSequence)String.valueOf(loadedAppointment.getEnd())).subSequence(0,10)));
         apptEndTimeHHCmb.setValue((String.valueOf(loadedAppointment.getEnd())).substring(11,13));
         apptEndTimeMMCmb.setValue((String.valueOf(loadedAppointment.getEnd())).substring(14,16));
-        apptEndTimeSSCmb.setValue((String.valueOf(loadedAppointment.getEnd())).substring(17,19));
+        try {
+        apptEndTimeSSCmb.setValue((String.valueOf(loadedAppointment.getEnd())).substring(17,19));}
+        catch (Exception e) {apptEndTimeSSCmb.setValue("00");}
         apptCustomerIDCmb.setValue(String.valueOf(loadedAppointment.getCustomerId()));
         apptUserIDCmb.setValue(String.valueOf(loadedAppointment.getUserId()));
         try {

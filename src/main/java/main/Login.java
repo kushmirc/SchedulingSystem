@@ -17,6 +17,9 @@ import utility.RBMain;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -32,6 +35,13 @@ public class Login extends Application {
 
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
+
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime currentLocalTime = LocalDateTime.parse((ZoneId.systemDefault().toString()), formatter);
+        System.out.println(currentLocalTime);*/
+
+        //LocalDateTime businessOpen =
+        //System.out.println();
 
         //AppointmentDao.appointmentsByCustomerId(2);
 

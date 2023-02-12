@@ -50,14 +50,14 @@
                   <TableView fx:id="appointmentsByTypeTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByTypeIdCol" prefWidth="92.0" text="Appointment ID" />
-                        <TableColumn fx:id="apptByTypeTitleCol" prefWidth="112.0" text="Title" />
+                        <TableColumn fx:id="apptByTypeTitleCol" prefWidth="76.0" text="Title" />
                         <TableColumn fx:id="apptByTypeCustomerIdCol" minWidth="0.0" prefWidth="74.0" text="Customer ID" />
-                        <TableColumn fx:id="apptByTypeContactIdCol" prefWidth="67.0" text="Contact ID" />
-                        <TableColumn fx:id="apptByTypeDescriptionCol" minWidth="0.0" prefWidth="207.0" text="Description" />
-                        <TableColumn fx:id="apptByTypeLocationCol" prefWidth="114.0" text="Location" />
-                        <TableColumn fx:id="apptByTypeTypeCol" minWidth="0.0" prefWidth="97.0" text="Type" />
-                        <TableColumn fx:id="apptByTypeStartCol" minWidth="0.0" prefWidth="87.0" text="Start" />
-                        <TableColumn fx:id="apptByTypeEndCol" minWidth="0.0" prefWidth="89.0" text="End" />
+                        <TableColumn fx:id="apptByTypeContactIdCol" prefWidth="62.0" text="Contact ID" />
+                        <TableColumn fx:id="apptByTypeDescriptionCol" minWidth="0.0" prefWidth="150.0" text="Description" />
+                        <TableColumn fx:id="apptByTypeLocationCol" prefWidth="69.0" text="Location" />
+                        <TableColumn fx:id="apptByTypeTypeCol" minWidth="0.0" prefWidth="113.0" text="Type" />
+                        <TableColumn fx:id="apptByTypeStartCol" minWidth="0.0" prefWidth="151.0" text="Start" />
+                        <TableColumn fx:id="apptByTypeEndCol" minWidth="0.0" prefWidth="150.0" text="End" />
                      </columns>
                      <HBox.margin>
                         <Insets />
@@ -102,14 +102,14 @@
                   <TableView fx:id="appointmentsByMonthTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByMonthIdCol" prefWidth="92.0" text="Appointment ID" />
-                        <TableColumn fx:id="apptByMonthTitleCol" prefWidth="112.0" text="Title" />
+                        <TableColumn fx:id="apptByMonthTitleCol" prefWidth="76.0" text="Title" />
                         <TableColumn fx:id="apptByMonthCustomerIdCol" minWidth="0.0" prefWidth="74.0" text="Customer ID" />
-                        <TableColumn fx:id="apptByMonthContactIdCol" prefWidth="67.0" text="Contact ID" />
-                        <TableColumn fx:id="apptByMonthDescriptionCol" minWidth="0.0" prefWidth="207.0" text="Description" />
-                        <TableColumn fx:id="apptByMonthLocationCol" prefWidth="114.0" text="Location" />
-                        <TableColumn fx:id="apptByMonthTypeCol" minWidth="0.0" prefWidth="97.0" text="Type" />
-                        <TableColumn fx:id="apptByMonthStartCol" minWidth="0.0" prefWidth="87.0" text="Start" />
-                        <TableColumn fx:id="apptByMonthEndCol" minWidth="0.0" prefWidth="89.0" text="End" />
+                        <TableColumn fx:id="apptByMonthContactIdCol" prefWidth="62.0" text="Contact ID" />
+                        <TableColumn fx:id="apptByMonthDescriptionCol" minWidth="0.0" prefWidth="150.0" text="Description" />
+                        <TableColumn fx:id="apptByMonthLocationCol" prefWidth="69.0" text="Location" />
+                        <TableColumn fx:id="apptByMonthTypeCol" minWidth="0.0" prefWidth="113.0" text="Type" />
+                        <TableColumn fx:id="apptByMonthStartCol" minWidth="0.0" prefWidth="151.0" text="Start" />
+                        <TableColumn fx:id="apptByMonthEndCol" minWidth="0.0" prefWidth="150.0" text="End" />
                      </columns>
                      <HBox.margin>
                         <Insets left="30.0" />
@@ -151,14 +151,14 @@
                   <TableView fx:id="appointmentsByContactTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByContactIdCol" prefWidth="92.0" text="Appointment ID" />
-                        <TableColumn fx:id="apptByContactTitleCol" prefWidth="112.0" text="Title" />
+                        <TableColumn fx:id="apptByContactTitleCol" prefWidth="76.0" text="Title" />
                         <TableColumn fx:id="apptByContactCustomerIdCol" minWidth="0.0" prefWidth="74.0" text="Customer ID" />
-                        <TableColumn fx:id="apptByContactContactIdCol" prefWidth="67.0" text="Contact ID" />
-                        <TableColumn fx:id="apptByContactDescriptionCol" minWidth="0.0" prefWidth="207.0" text="Description" />
-                        <TableColumn fx:id="apptByContactLocationCol" prefWidth="114.0" text="Location" />
-                        <TableColumn fx:id="apptByContactTypeCol" minWidth="0.0" prefWidth="97.0" text="Type" />
-                        <TableColumn fx:id="apptByContactStartCol" minWidth="0.0" prefWidth="87.0" text="Start" />
-                        <TableColumn fx:id="apptByContactEndCol" minWidth="0.0" prefWidth="89.0" text="End" />
+                        <TableColumn fx:id="apptByContactContactIdCol" prefWidth="62.0" text="Contact ID" />
+                        <TableColumn fx:id="apptByContactDescriptionCol" minWidth="0.0" prefWidth="150.0" text="Description" />
+                        <TableColumn fx:id="apptByContactLocationCol" prefWidth="69.0" text="Location" />
+                        <TableColumn fx:id="apptByContactTypeCol" minWidth="0.0" prefWidth="113.0" text="Type" />
+                        <TableColumn fx:id="apptByContactStartCol" minWidth="0.0" prefWidth="151.0" text="Start" />
+                        <TableColumn fx:id="apptByContactEndCol" minWidth="0.0" prefWidth="150.0" text="End" />
                      </columns>
                      <HBox.margin>
                         <Insets left="30.0" />
@@ -200,14 +200,14 @@
                   <TableView fx:id="appointmentsByCustomerTableView" prefHeight="90.0" prefWidth="940.0">
                      <columns>
                         <TableColumn fx:id="apptByCustomerIdCol" prefWidth="92.0" text="Appointment ID" />
-                        <TableColumn fx:id="apptByCustomerTitleCol" prefWidth="112.0" text="Title" />
+                        <TableColumn fx:id="apptByCustomerTitleCol" prefWidth="76.0" text="Title" />
                         <TableColumn fx:id="apptByCustomerCustomerIdCol" minWidth="0.0" prefWidth="74.0" text="Customer ID" />
-                        <TableColumn fx:id="apptByCustomerContactIdCol" prefWidth="67.0" text="Contact ID" />
-                        <TableColumn fx:id="apptByCustomerDescriptionCol" minWidth="0.0" prefWidth="207.0" text="Description" />
-                        <TableColumn fx:id="apptByCustomerLocationCol" prefWidth="114.0" text="Location" />
-                        <TableColumn fx:id="apptByCustomerTypeCol" minWidth="0.0" prefWidth="97.0" text="Type" />
-                        <TableColumn fx:id="apptByCustomerStartCol" minWidth="0.0" prefWidth="87.0" text="Start" />
-                        <TableColumn fx:id="apptByCustomerEndCol" minWidth="0.0" prefWidth="89.0" text="End" />
+                        <TableColumn fx:id="apptByCustomerContactIdCol" prefWidth="62.0" text="Contact ID" />
+                        <TableColumn fx:id="apptByCustomerDescriptionCol" minWidth="0.0" prefWidth="150.0" text="Description" />
+                        <TableColumn fx:id="apptByCustomerLocationCol" prefWidth="69.0" text="Location" />
+                        <TableColumn fx:id="apptByCustomerTypeCol" minWidth="0.0" prefWidth="113.0" text="Type" />
+                        <TableColumn fx:id="apptByCustomerStartCol" minWidth="0.0" prefWidth="151.0" text="Start" />
+                        <TableColumn fx:id="apptByCustomerEndCol" minWidth="0.0" prefWidth="150.0" text="End" />
                      </columns>
                      <HBox.margin>
                         <Insets left="30.0" />
