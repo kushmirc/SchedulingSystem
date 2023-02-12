@@ -36,8 +36,8 @@ public class Login extends Application {
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
 
-        LocalDateTime currentLdt = LocalDateTime.now();
-        System.out.println(currentLdt);
+        //LocalDateTime currentLdt = LocalDateTime.now();
+        //System.out.println(currentLdt);
 
 
         //AppointmentDao.appointmentsByCustomerId(2);

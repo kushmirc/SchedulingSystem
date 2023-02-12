@@ -35,6 +35,9 @@ public class AddAppointmentController implements Initializable {
     Appointment newAppointment;
 
     @FXML
+    private TextField apptTitleTxt;
+
+    @FXML
     private ComboBox<String> apptContactCmb;
 
     @FXML
@@ -73,8 +76,6 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private ComboBox<String> apptStartTimeSSCmb;
 
-    @FXML
-    private TextField apptTitleTxt;
 
     @FXML
     private ComboBox<String> apptTypeCmb;
@@ -93,6 +94,7 @@ public class AddAppointmentController implements Initializable {
 
     @FXML
     public void onActionSaveAppointment(ActionEvent event) throws IOException, SQLException {
+        ObservableList<Appointment> allAppointments = AppointmentDao.getAllAppointments();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         //String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
@@ -125,6 +127,17 @@ public class AddAppointmentController implements Initializable {
             alert.setContentText("Appointments may only be scheduled during business hours (8:00am to 10:00pm EST).");
             alert.showAndWait();
             return;
+        }
+
+        for (Appointment appointment : allAppointments) {
+            if ((startLdt.isBefore(appointment.getEnd())) && (endLdt.isAfter(appointment.getStart()))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Appointment");
+                alert.setHeaderText("Overlapping Appointment");
+                alert.setContentText("There is at least one existing appointment time overlapping this one. Please adjust your desired appointment time.");
+                alert.showAndWait();
+                return;
+            }
         }
 
         String contact = apptContactCmb.getValue();

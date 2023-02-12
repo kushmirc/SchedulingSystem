@@ -62,15 +62,18 @@
                         <Label text="Contact:" GridPane.rowIndex="6" />
                         <Label text="Start Time:" GridPane.rowIndex="8" />
                         <Label text="End Time:" GridPane.rowIndex="9" />
-                        <TextField fx:id="apptDescriptionTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="apptUserIDCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                         <TextField fx:id="apptTitleTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                         <TextField fx:id="apptDescriptionTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                         <ComboBox fx:id="apptLocationCmb1" onAction="#onActionSelectLocation1" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                         <ComboBox fx:id="apptLocationCmb2" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                         <ComboBox fx:id="apptCustomerIDCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                         <ComboBox fx:id="apptUserIDCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <ComboBox fx:id="apptContactCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label text="Title:" GridPane.rowIndex="1" />
-                        <TextField fx:id="apptTitleTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                         <ComboBox fx:id="apptTypeCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                         <Label text="Title:" GridPane.rowIndex="1" />
                         <Label text="Customer ID:" GridPane.rowIndex="4" />
                         <Label text="Type:" GridPane.rowIndex="7" />
                         <DatePicker fx:id="apptStartTimeDt" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <DatePicker fx:id="apptEndTimeDt" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <ComboBox fx:id="apptStartTimeHHCmb" prefHeight="25.0" prefWidth="75.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
                         <Label text="HH:" GridPane.columnIndex="2" GridPane.rowIndex="8">
                            <GridPane.margin>
@@ -79,7 +82,8 @@
                         </Label>
                         <ComboBox fx:id="apptStartTimeMMCmb" prefWidth="75.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
                         <ComboBox fx:id="apptStartTimeSSCmb" prefWidth="75.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-                        <ComboBox fx:id="apptEndTimeHHCmb" prefWidth="75.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+                         <DatePicker fx:id="apptEndTimeDt" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                         <ComboBox fx:id="apptEndTimeHHCmb" prefWidth="75.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
                         <ComboBox fx:id="apptEndTimeMMCmb" prefWidth="75.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
                         <ComboBox fx:id="apptEndTimeSSCmb" prefWidth="75.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
                         <Label text="HH:" GridPane.columnIndex="2" GridPane.rowIndex="9">
@@ -107,10 +111,7 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="apptTypeCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <ComboBox fx:id="apptLocationCmb1" onAction="#onActionSelectLocation1" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="apptLocationCmb2" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="apptCustomerIDCmb" prefHeight="25.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
                         <Label text="Appointment ID:" />
                         <TextField fx:id="appointmentIDTxt" disable="true" GridPane.columnIndex="1" />
                      </children>
