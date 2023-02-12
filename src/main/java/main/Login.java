@@ -36,12 +36,9 @@ public class Login extends Application {
     public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
 
-        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime currentLocalTime = LocalDateTime.parse((ZoneId.systemDefault().toString()), formatter);
-        System.out.println(currentLocalTime);*/
+        LocalDateTime currentLdt = LocalDateTime.now();
+        System.out.println(currentLdt);
 
-        //LocalDateTime businessOpen =
-        //System.out.println();
 
         //AppointmentDao.appointmentsByCustomerId(2);
 
