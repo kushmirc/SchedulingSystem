@@ -106,6 +106,21 @@ public class MainScreenController implements Initializable {
     @FXML
     private Label appointmentsExLbl;
 
+    DisplayNotification deleteCustomer = () -> {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Customer");
+        alert.setHeaderText("Delete");
+        alert.setContentText("Are you sure you want to delete this customer?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            CustomerDao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem().getId());
+            customersExLbl.setText("Customer deleted");
+        } else {
+            customersExLbl.setText("Customer not deleted");
+        }
+    };
+
     @FXML
     void onActionViewAllRBtn(ActionEvent event) {
         initializeAppointments();
@@ -224,7 +239,9 @@ public class MainScreenController implements Initializable {
             }
         }
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            deleteCustomer.confirmation();
+
+           /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Customer");
             alert.setHeaderText("Delete");
             alert.setContentText("Are you sure you want to delete this customer?");
@@ -235,7 +252,7 @@ public class MainScreenController implements Initializable {
                 customersExLbl.setText("Customer deleted");
             } else {
                 customersExLbl.setText("Customer not deleted");
-            }
+            } */
 
             initializeCustomers();
 
