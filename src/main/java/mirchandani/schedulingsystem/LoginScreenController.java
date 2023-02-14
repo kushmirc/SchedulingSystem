@@ -18,17 +18,20 @@ import javafx.stage.Stage;
 import model.Appointment;
 import model.User;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class LoginScreenController implements Initializable {
 
@@ -75,18 +78,35 @@ public class LoginScreenController implements Initializable {
 
     @FXML
     public  void onActionLogin(ActionEvent event) throws IOException, SQLException {
+
+        Logger log = Logger.getLogger("login_activity.txt");
+        try{
+        FileHandler fh = new FileHandler("login_activity.txt", true);
+        SimpleFormatter sf = new SimpleFormatter();
+        fh.setFormatter(sf);
+        log.addHandler(fh);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         UserDao.getAllUsers();
         usernameExLbl.setVisible(false);
         passwordExLbl.setVisible(false);
         ObservableList<User> searchedUser;
 
         searchedUser = UserDao.lookupUser(usernameTxt.getText());
+        String user = usernameTxt.getText();
 
         if (searchedUser.size() == 0) {
             usernameExLbl.setVisible(true);
         } else if (!Objects.equals(searchedUser.get(0).getPassword(), passwordTxt.getText())) {
             passwordExLbl.setVisible(true);
+            log.severe("User: " + user + " gave invalid login at " + ZonedDateTime.now());
         } else {
+            log.info("User: " + user + " successfully logged in at " + ZonedDateTime.now());
+
 
             upcomingAppointments();
             //get the stage from the event's source widget
@@ -153,8 +173,6 @@ public class LoginScreenController implements Initializable {
         zone();
         usernameExLbl.setVisible(false);
         passwordExLbl.setVisible(false);
-
-
 
     }
 }
