@@ -83,6 +83,12 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private ComboBox<String> apptUserIDCmb;
 
+    TimeConversion ZonedToLdtUtc = ZonedUtc -> {
+        LocalDateTime LdtUtc;
+        LdtUtc = ZonedUtc.toLocalDateTime();
+        return LdtUtc;
+    };
+
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
@@ -107,7 +113,8 @@ public class AddAppointmentController implements Initializable {
         //System.out.println(startZonedUtc);
         ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
         //System.out.println(startZoneEst);
-        LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
+        //LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
+
 
         LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
         ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
@@ -149,7 +156,7 @@ public class AddAppointmentController implements Initializable {
         ResultSet rs = ps.executeQuery();
         rs.next();
 
-        AppointmentDao.insertAppointment(apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startLdtUtc, endLdtUtc, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
+        AppointmentDao.insertAppointment(apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), ZonedToLdtUtc.zonedToLdtUtc(startZonedUtc), ZonedToLdtUtc.zonedToLdtUtc(endZonedUtc), Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();

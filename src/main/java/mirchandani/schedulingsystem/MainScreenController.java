@@ -121,6 +121,21 @@ public class MainScreenController implements Initializable {
         }
     };
 
+    DisplayNotification deleteAppointment = () -> {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Appointment");
+        alert.setHeaderText("Delete");
+        alert.setContentText("Are you sure you want to delete this appointment?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            AppointmentDao.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getId());
+            appointmentsExLbl.setText("Appointment deleted");
+        } else {
+            appointmentsExLbl.setText("Appointment not deleted");
+        }
+    };
+
     @FXML
     void onActionViewAllRBtn(ActionEvent event) {
         initializeAppointments();
@@ -196,7 +211,8 @@ public class MainScreenController implements Initializable {
             appointmentsExLbl.setText("Please select an appointment");
             return;}
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteAppointment.confirmation();
+       /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Appointment");
         alert.setHeaderText("Delete");
         alert.setContentText("Are you sure you want to delete this appointment?");
@@ -207,7 +223,7 @@ public class MainScreenController implements Initializable {
             appointmentsExLbl.setText("Appointment deleted");
         } else {
             appointmentsExLbl.setText("Appointment not deleted");
-        }
+        }*/
 
         initializeAppointments();
     }

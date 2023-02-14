@@ -48,30 +48,6 @@ public class AddCustomerController implements Initializable {
     @FXML
     private ComboBox<String> customerStateCmb;
 
-    public TextField getCustomerAddressTxt() {
-        return customerAddressTxt;
-    }
-
-    public ComboBox<String> getCustomerCountryCmb() {
-        return customerCountryCmb;
-    }
-
-    public TextField getCustomerNameTxt() {
-        return customerNameTxt;
-    }
-
-    public TextField getCustomerPhoneTxt() {
-        return customerPhoneTxt;
-    }
-
-    public TextField getCustomerPostalCodeTxt() {
-        return customerPostalCodeTxt;
-    }
-
-    public ComboBox<String> getCustomerStateCmb() {
-        return customerStateCmb;
-    }
-
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
