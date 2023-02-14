@@ -1,4 +1,4 @@
-package mirchandani.schedulingsystem;
+package utility;
 
 import java.sql.SQLException;
 

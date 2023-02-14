@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
 import utility.JDBC;
+import utility.TimeConversion;
 
 import java.io.IOException;
 import java.net.URL;

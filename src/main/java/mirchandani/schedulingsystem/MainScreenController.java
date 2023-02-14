@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
+import utility.DisplayNotification;
 
 import java.io.IOException;
 import java.net.URL;
