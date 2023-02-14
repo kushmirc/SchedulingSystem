@@ -1,0 +1,2 @@
+Title: Scheduling System
+Purpose: A desktop Java application to schedule and modify appointments with data stored and accessed in a MySQL database.  This application can be used in a variety of organizations located in different areas around the world.
