@@ -118,14 +118,14 @@ public class ModifyAppointmentController implements Initializable {
         ZonedDateTime startZonedUtc = startZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
         //System.out.println(utcstartZoned);
         ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
-        //LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
+        LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
 
 
         LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
         ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
-        //LocalDateTime endLdtUtc = endZonedUtc.toLocalDateTime();
+        LocalDateTime endLdtUtc = endZonedUtc.toLocalDateTime();
 
         LocalTime businessOpenTime = LocalTime.of(8,0);
         //LocalDate businessOpenDate = startZonedEst.toLocalDate();
@@ -153,7 +153,7 @@ public class ModifyAppointmentController implements Initializable {
 
         //System.out.println(endStamp);
 
-        AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), AddAppointmentController.ZonedToLdtUtc.zonedToLdtUtc(startZonedUtc), AddAppointmentController.ZonedToLdtUtc.zonedToLdtUtc(endZonedUtc), Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
+        AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startLdtUtc, endLdtUtc, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
