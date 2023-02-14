@@ -67,16 +67,6 @@ public class LoginScreenController implements Initializable {
     @FXML
     private Label passwordExLbl;
 
-    String filename = "loginAttempts.txt", item;
-
-    Scanner keyboard = new Scanner(System.in);
-
-    int numItems = keyboard.nextInt();
-
-    PrintWriter outputFile = new PrintWriter(filename);
-
-
-
 
 
     public LoginScreenController() throws FileNotFoundException {
@@ -164,15 +154,7 @@ public class LoginScreenController implements Initializable {
         usernameExLbl.setVisible(false);
         passwordExLbl.setVisible(false);
 
-        /*System.out.println("How many items do you have");
-        // Clear keyboard buffer
-        keyboard.nextLine();
 
-        for(int i = 0; i < numItems; i++) {
-            System.out.println("Enter Item" + i + 1 + ": ");
-            item = keyboard.nextLine();
-            outputFile.println(item);
-        }*/
 
     }
 }
