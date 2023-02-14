@@ -71,25 +71,13 @@ public class LoginScreenController implements Initializable {
     private Label passwordExLbl;
 
 
-
-    public LoginScreenController() throws FileNotFoundException {
-    }
+    Logger log = Logger.getLogger("login_activity.txt");
 
 
     @FXML
     public  void onActionLogin(ActionEvent event) throws IOException, SQLException {
 
-        Logger log = Logger.getLogger("login_activity.txt");
-        try{
-        FileHandler fh = new FileHandler("login_activity.txt", true);
-        SimpleFormatter sf = new SimpleFormatter();
-        fh.setFormatter(sf);
-        log.addHandler(fh);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
 
         UserDao.getAllUsers();
         usernameExLbl.setVisible(false);
@@ -173,6 +161,17 @@ public class LoginScreenController implements Initializable {
         zone();
         usernameExLbl.setVisible(false);
         passwordExLbl.setVisible(false);
+
+        try{
+            FileHandler fh = new FileHandler("login_activity.txt", true);
+            SimpleFormatter sf = new SimpleFormatter();
+            fh.setFormatter(sf);
+            log.addHandler(fh);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 }
