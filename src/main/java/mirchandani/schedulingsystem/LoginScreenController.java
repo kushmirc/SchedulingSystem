@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 import model.Appointment;
 import model.User;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -26,6 +28,7 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class LoginScreenController implements Initializable {
 
@@ -63,6 +66,21 @@ public class LoginScreenController implements Initializable {
 
     @FXML
     private Label passwordExLbl;
+
+    String filename = "loginAttempts.txt", item;
+
+    Scanner keyboard = new Scanner(System.in);
+
+    int numItems = keyboard.nextInt();
+
+    PrintWriter outputFile = new PrintWriter(filename);
+
+
+
+
+
+    public LoginScreenController() throws FileNotFoundException {
+    }
 
 
     @FXML
@@ -145,6 +163,16 @@ public class LoginScreenController implements Initializable {
         zone();
         usernameExLbl.setVisible(false);
         passwordExLbl.setVisible(false);
+
+        /*System.out.println("How many items do you have");
+        // Clear keyboard buffer
+        keyboard.nextLine();
+
+        for(int i = 0; i < numItems; i++) {
+            System.out.println("Enter Item" + i + 1 + ": ");
+            item = keyboard.nextLine();
+            outputFile.println(item);
+        }*/
 
     }
 }
