@@ -23,7 +23,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/** Class Login is the first class that runs when the application is run.
+ * Class Login contains the main method, starts the stage for JavaFX, and initializes JavaFX.
+ * It also opens and closes the connection to the MySQL database.
+ * @author Kush Mirchandani */
 public class Login extends Application {
+
+    /** The start method for the JavaFX stage.
+     * This starts the JavaFX stage, and sets the first scene to LoginScreen.fxml
+     * @param stage the stage to start */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("LoginScreen.fxml"));
