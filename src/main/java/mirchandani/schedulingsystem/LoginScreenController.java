@@ -140,17 +140,20 @@ public class LoginScreenController implements Initializable {
         LocalDateTime currentLdt = LocalDateTime.now();
 
         for (Appointment appointment : allAppointments) {
-            if ((appointment.getStart().isBefore(currentLdt.plusMinutes(15))) && (appointment.getStart().isAfter(currentLdt))){
+            if ((appointment.getStart().isBefore(currentLdt.plusMinutes(15))) && (appointment.getStart().isAfter(currentLdt))) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Appointment");
                 alert.setHeaderText("Upcoming Appointment");
-                alert.setContentText("There is at least one appointment coming up within 15 minutes from now.");
+                alert.setContentText("There is at least one appointment coming up within 15 minutes from now.\n" + "Appointment Info: " + String.valueOf(appointment.getId()) + appointment.getStart());
                 alert.showAndWait();
                 return;
             }
         }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Appointment");
+        alert.setContentText("There are no upcoming appointments.");
+        alert.showAndWait();
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
