@@ -20,6 +20,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/** Class AddCustomerController controls AddCustomer.fxml. It allows users to
+ * create customers and input a customer name, address, postal code, phone number,
+ * and division ID, with text fields and combo boxes. The combo boxes are populated
+ * when the screen is initialized. When customers are saved, they are assigned a customer ID
+ * by the system.
+ * @author Kush Mirchandani*/
 public class AddCustomerController implements Initializable {
 
     /** declares a stage variable */
@@ -46,6 +52,9 @@ public class AddCustomerController implements Initializable {
     @FXML
     private ComboBox<String> customerStateCmb;
 
+    /** Cancel button clicked.
+     * Exits the Add Customer screen and opens the Main Screen.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
@@ -55,6 +64,10 @@ public class AddCustomerController implements Initializable {
         stage.show();
     }
 
+    /** Save button clicked.
+     * Saves the new customer by calling the insertCustomer method in the CustomerDao class.
+     * Closes the Add Customer screen and opens the Main Screen when clicked.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
 
@@ -77,11 +90,19 @@ public class AddCustomerController implements Initializable {
         stage.show();
     }
 
+    /** Selection made in the Country combo box.
+     * Populates the State combo box with the state names associated
+     * with the country selected in the country combo box.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     void onActionSelectCountry(ActionEvent event) {
         initializeCity();
     }
 
+    /** This method populates the Country combo box.
+     * Populates the Country combo box with the names of all countries contained
+     * in the Country column of the countries table in the client_schedule MySQL database.
+     * It's called when the AddCustomer screen is opened.*/
     private void initializeCountry() {
         try{
             String sql = "SELECT Country FROM countries";
@@ -96,6 +117,9 @@ public class AddCustomerController implements Initializable {
         }
     }
 
+    /** This method populates the State combo box.
+     * Populates the State combo box with the state names associated
+     * with the country selected in the Country combo box. */
     private void initializeCity() {
         try{
             String country = customerCountryCmb.getValue();
@@ -118,11 +142,14 @@ public class AddCustomerController implements Initializable {
         }
     }
 
+    /** This is the initialize method.
+     * This is the first method that gets called when the scene is set to the AddCustomer Screen.
+     * Calls the initialization method to populate the Country combo box.
+     * @param url the location of AddCustomer.fxml
+     * @param resourceBundle the name of AddCustomer.fxml*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeCountry();
-
     }
-
 }

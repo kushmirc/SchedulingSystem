@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
  * @author Kush Mirchandani*/
 public class ModifyAppointmentController implements Initializable {
 
-    /** declares an appointment object so the attributes for an appointment can be accessed */
+    /** declares an appointment variable so the attributes for an appointment can be accessed */
     private static Appointment loadedAppointment;
 
     /** declares a stage variable */
@@ -361,8 +361,8 @@ public class ModifyAppointmentController implements Initializable {
 
     /** This is the initialize method.
      * This is the first method that gets called when the scene is set to the ModifyAppointment Screen.
-     * The combo boxes are set to the values for the appointment being modified. This method calls the initialization
-     * methods to populate the Location, Customer ID, User ID, Contact,Type, and Start and End time combo boxes.
+     * The text fields and combo boxes are set to the values for the appointment being modified. This method calls the
+     * initialization methods to populate the Location, Customer ID, User ID, Contact,Type, and Start and End time combo boxes.
      * @param url the location of ModifyAppointment.fxml
      * @param resourceBundle the name of ModifyAppointment.fxml*/
     @Override

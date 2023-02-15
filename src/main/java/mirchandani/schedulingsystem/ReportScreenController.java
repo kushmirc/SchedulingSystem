@@ -21,6 +21,11 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+/** Class ReportScreenController controls ReportScreen.fxml. It displays four appointment table views.
+ * These table views display all appointments when filtered by appointment type, month, contact, or customer,
+ * respectively. There are combo boxes allowing the user to select the values to filter by. Each table view
+ * also displays a count of the number of appointments returned by the filter.
+ * @author Kush Mirchandani*/
 public class ReportScreenController implements Initializable {
 
     /** declares a stage variable */
@@ -176,6 +181,11 @@ public class ReportScreenController implements Initializable {
     @FXML
     private Button returnToMainBtn;
 
+    /** Selection made in the Appointments by Type combo box.
+     * Populates the table view columns with the values from the appointments retrieved
+     * by calling the appointmentsByType method from the AppointmentDao class.
+     * Sets the count text field to the number of appointments retrieved.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     void onActionSelectType(ActionEvent event) throws SQLException {
 
@@ -194,6 +204,12 @@ public class ReportScreenController implements Initializable {
         apptByTypeCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         apptByTypeContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
+
+    /** Selection made in the Appointments by Month combo box.
+     * Populates the table view columns with the values from the appointments retrieved
+     * by calling the appointmentsByMonth method from the AppointmentDao class.
+     * Sets the count text field to the number of appointments retrieved.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     void onActionSelectMonth(ActionEvent event) throws SQLException {
 
@@ -213,6 +229,12 @@ public class ReportScreenController implements Initializable {
         apptByMonthContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
 
+    /** Selection made in the Appointments by Contact combo box.
+     * Populates the table view columns with the values from the appointments retrieved
+     * by calling the appointmentsByContact method from the AppointmentDao class.  Converts the
+     * contact name from the combo box to its associated contact ID to be populated in the table view.
+     * Sets the count text field to the number of appointments retrieved.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     void onActionSelectContact(ActionEvent event) throws SQLException {
 
@@ -243,22 +265,14 @@ public class ReportScreenController implements Initializable {
         apptByContactContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
 
-
-
+    /** Selection made in the Appointments by Customer combo box.
+     * Populates the table view columns with the values from the appointments retrieved
+     * by calling the appointmentsByCustomerId method from the AppointmentDao class.
+     * Sets the count text field to the number of appointments retrieved.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     void onActionSelectCustomer(ActionEvent event) throws SQLException {
 
-        /*String customer = appointmentsByCustomerCmb.getValue();
-
-        String sql = "SELECT Customer_ID "
-                + "FROM customers "
-                + "WHERE Customer_Name = \"" + customer + "\"";
-
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-
-        appointmentsByCustomerTableView.setItems(AppointmentDao.appointmentsByCustomerId(rs.getInt("Customer_ID")));*/
         AppointmentDao.allAppointmentsByCustomerId.clear();
 
         String customerIdAndName = appointmentsByCustomerCmb.getValue();
@@ -278,6 +292,9 @@ public class ReportScreenController implements Initializable {
         apptByCustomerContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }
 
+    /** Return to Main button clicked.
+     * Exits the Reports screen and opens the Main Screen.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
@@ -287,6 +304,11 @@ public class ReportScreenController implements Initializable {
         stage.show();
     }
 
+    /** Populates the Appointments by Type combo box.
+     * Populates the Appointments by Type combo box with the appointment
+     * types found among all appointments scheduled. Only adds an appointment type
+     * if it hasn't already been added to the combo box to prevent duplicates.
+     * It's called when the Report Screen is opened*/
     private void initializeAppointmentsByTypeCmb() {
         try{
             String sql = "SELECT Type FROM appointments";
@@ -296,8 +318,6 @@ public class ReportScreenController implements Initializable {
 
                 if (appointmentsByTypeCmb.getItems().contains(rs.getString("Type"))) {}
                 else {appointmentsByTypeCmb.getItems().add(rs.getString("Type"));}
-
-                //appointmentsByTypeCmb.getItems().add(rs.getString("Type"));
             }
         }
         catch (Exception e) {
@@ -305,19 +325,11 @@ public class ReportScreenController implements Initializable {
         }
     }
 
+    /** Populates the Appointments by Month combo box.
+     * Populates the Appointments by Month combo box with string values for each month
+     * in a year. It's represented by the two-digit month, and the month name separated by a hyphen.
+     * It's called when the Report Screen is opened*/
     private void initializeAppointmentsByMonthCmb() {
-        /*try{
-            String sql = "SELECT Start FROM appointments";
-            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                appointmentsByMonthCmb.getItems().add(rs.getString("Start").substring(5,7));
-            }
-        }
-        catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }*/
-
         appointmentsByMonthCmb.getItems().addAll(
                 "01 - January", "02 - February", "03 - March", "04 - April", "05 - May", "06 - June", "07 - July", "08 - August", "09 - September", "10 - October", "11 - November", "12 - December");
     }
@@ -335,6 +347,11 @@ public class ReportScreenController implements Initializable {
         }
     }
 
+    /** Populates the Appointments by Customer combo box.
+     * Populates the Appointments by Customer combo box with the customer ID's of all customers
+     * from the customers table in the client_schedule MySQL database.
+     * It represents customers with both the customer ID and name, separated by a hyphen.
+     * It's called when the Report Screen is opened*/
     private void initializeAppointmentsByCustomerCmb() {
         try{
             String sql = "SELECT Customer_ID, Customer_Name FROM customers";
@@ -347,9 +364,14 @@ public class ReportScreenController implements Initializable {
         catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-
     }
 
+    /** This is the initialize method.
+     * This is the first method that gets called when the scene is set to the Report Screen.
+     * Calls the initialization methods to populate the appointments by type, month, contact,
+     * and customer combo boxes.
+     * @param url the location of ReportScreen.fxml
+     * @param resourceBundle the name of ReportScreen.fxml*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -357,8 +379,5 @@ public class ReportScreenController implements Initializable {
         initializeAppointmentsByMonthCmb();
         initializeAppointmentsByContactCmb();
         initializeAppointmentsByCustomerCmb();
-
-
-
     }
 }
