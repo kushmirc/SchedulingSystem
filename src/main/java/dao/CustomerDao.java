@@ -55,6 +55,13 @@ public abstract class CustomerDao {
             return  allCustomers;
     }
 
+    /** This method inserts a new appointment record into the appointments table of the client_schedule MySQL database.
+     * @param name the name of the customer.
+     * @param address the address of the customer.
+     * @param postalCode the postal code of the customer.
+     * @param phone the phone number of the customer.
+     * @param divisionId the division ID associated with the customer.
+     * @return the number of rows inserted */
     public static int insertCustomer(String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
         String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -67,6 +74,14 @@ public abstract class CustomerDao {
         return rowsAffected;
     }
 
+    /** This method updates an existing customer record with each column value passed into it.
+     * @param customerId the customer ID of the customer.
+     * @param name the name of the customer.
+     * @param address the address of the customer.
+     * @param postalCode the postal code of the customer.
+     * @param phone the phone number of the customer.
+     * @param divisionId the division ID associated with the customer.
+     * @return the number of rows updated */
     public static int updateCustomer(int customerId, String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
         String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -80,6 +95,9 @@ public abstract class CustomerDao {
         return rowsAffected;
     }
 
+    /** This method deletes a customer record from the customers table of the client_schedule MySQL database.
+     * @param customerId the customer ID of the customer.
+     * @return the number of rows deleted */
     public static int deleteCustomer(int customerId) throws SQLException {
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
