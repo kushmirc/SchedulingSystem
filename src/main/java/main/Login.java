@@ -1,27 +1,14 @@
 package mirchandani.schedulingsystem;
 
-import dao.AppointmentDao;
-import dao.CustomerDao;
-import dao.FruitsQuery;
-import dao.UserDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import model.User;
 import utility.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utility.RBMain;
 
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /** Class Login is the first class that runs when the application is run.
  * Class Login contains the main method, starts the stage for JavaFX, and initializes JavaFX.
@@ -41,32 +28,16 @@ public class Login extends Application {
         stage.show();
     }
 
+    /** This is the main method.
+     * This is the first method that gets called when the program runs.
+     * It first opens the connection to the MySQL database, then launches JavaFX,
+     * and closes the connection to the database when the application is stopped.*/
     public static void main(String[] args) throws SQLException {
+
         JDBC.openConnection();
 
-        //LocalDateTime currentLdt = LocalDateTime.now();
-        //System.out.println(currentLdt);
-
-
-        //AppointmentDao.appointmentsByCustomerId(2);
-
-        //FruitsQuery.insert("Cherries", 1);
-
-            //FruitsQuery.delete(7);
-        //int rowsAffected = FruitsQuery.delete(7);
-
-        /*if(rowsAffected > 0){
-            System.out.println("Delete Successful");
-        } else {
-            System.out.println("Delete Failed");
-        }*/
-
-        //CustomerDao.getCustomer();
-        //UserDao.getAllUsers();
-        //AppointmentDao.getAppointment();
-
         launch();
-        JDBC.closeConnection();
 
+        JDBC.closeConnection();
     }
 }
