@@ -12,9 +12,11 @@ import java.sql.SQLException;
 
 public abstract class UserDao {
 
+    /** declare and initialize an observable list for all users */
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
 
-    public static void getUser() throws SQLException {
+    // getUser isn't used.
+    /*public static void getUser() throws SQLException {
         String sql = "SELECT * FROM users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -26,10 +28,11 @@ public abstract class UserDao {
             System.out.print(userName + " | ");
             System.out.print(userPassword + "\n");
         }
-    }
+    }*/
 
+    /** This method gets all user objects that have been created.
+     * @return the observable list of all users */
     public static ObservableList<User> getAllUsers() throws SQLException {
-
         String sql = "SELECT * FROM users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -40,12 +43,14 @@ public abstract class UserDao {
 
             User userResult = new User(userId, userName, userPassword);
             allUsers.add(userResult);
-
-            //System.out.println(allUsers);
         }
             return  allUsers;
-
     }
+
+    /** This method iterates through every user in the all users list and adds a user to the namedUser list
+     * whose name field match the string passed in.
+     * @param userName the string to search for.
+     * @return the user containing the string passed in */
     public static ObservableList<User> lookupUser(String userName) {
         ObservableList<User> namedUser = FXCollections.observableArrayList();
 
@@ -56,5 +61,4 @@ public abstract class UserDao {
         }
         return namedUser;
     }
-
 }
