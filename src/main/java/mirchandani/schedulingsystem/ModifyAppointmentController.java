@@ -25,8 +25,16 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/** Class ModifyAppointmentController controls ModifyAppointment.fxml. It allows users to
+ * modify appointments and input a new appointment title, description, location, customer ID,
+ * user ID, contact name, type, and start and end dates and times with text fields, combo boxes,
+ * and date pickers. The combo boxes are set to the values for the appointment being modified,
+ * and are populated when the screen is initialized. The appointment ID is displayed but cannot
+ * be modified.
+ * @author Kush Mirchandani*/
 public class ModifyAppointmentController implements Initializable {
 
+    /** declares an appointment object so the attributes for an appointment can be accessed */
     private static Appointment loadedAppointment;
 
     /** declares a stage variable */
@@ -86,16 +94,16 @@ public class ModifyAppointmentController implements Initializable {
     @FXML
     private ComboBox<String> apptUserIDCmb;
 
-    @FXML
-    void onActionSelectLocation1(ActionEvent event) {
-        initializeLocation2();
-    }
-
+    /** Sets the value for the loadedAppointment variable.
+     * Sets the value for the loadedAppointment variable to the value of the appointment passed in.
+     * @param selectedAppointment the appointment passed in. */
     public static void updateAppointment(Appointment selectedAppointment) {
         loadedAppointment = selectedAppointment;
-        //System.out.println(loadedAppointment);
     }
 
+    /** Cancel button clicked.
+     * Exits the Modify Appointment screen and opens the Main Screen.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
@@ -105,11 +113,17 @@ public class ModifyAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Save button clicked.
+     * Saves the modified Appointment by calling the updateAppointment method in the AppointmentDao class.
+     * Closes the Modify Appointment screen and opens the Main Screen when clicked. Accepts the date and time
+     * of the appointment input by the user and converts it to UTC when saved to the client_schedule database.
+     * Displays error messages and stops running if the appointment time is outside of business hours (in eastern
+     * U.S. time) or if the appointment time overlaps with any existing appointment times.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionSaveAppointment(ActionEvent event) throws IOException, SQLException {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        //String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
         //System.out.println(startRaw);
         LocalDateTime startLdt = LocalDateTime.parse(apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue(), formatter);
         //System.out.println(startLdt);
@@ -120,7 +134,6 @@ public class ModifyAppointmentController implements Initializable {
         ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
         LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
 
-
         LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
         ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
@@ -128,11 +141,7 @@ public class ModifyAppointmentController implements Initializable {
         LocalDateTime endLdtUtc = endZonedUtc.toLocalDateTime();
 
         LocalTime businessOpenTime = LocalTime.of(8,0);
-        //LocalDate businessOpenDate = startZonedEst.toLocalDate();
-        //LocalDateTime businessOpen = LocalDateTime.of(businessOpenDate,businessOpenTime);
         LocalTime businessCloseTime = LocalTime.of(22,0);
-        //LocalDate businessCloseDate = endZonedEst.toLocalDate();
-        //LocalDateTime businessClose = LocalDateTime.of(businessCloseDate,businessCloseTime);
 
         if((startZonedEst.toLocalTime().isBefore(businessOpenTime)) || (startZonedEst.toLocalTime().isAfter(businessCloseTime))|| (endZonedEst.toLocalTime().isBefore(businessOpenTime)) || (endZonedEst.toLocalTime().isAfter(businessCloseTime))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -151,8 +160,6 @@ public class ModifyAppointmentController implements Initializable {
         ResultSet rs = ps.executeQuery();
         rs.next();
 
-        //System.out.println(endStamp);
-
         AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startLdtUtc, endLdtUtc, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
@@ -162,6 +169,19 @@ public class ModifyAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Selection made in the first Location combo box.
+     * Populates the second Location combo box with the state names associated
+     * with the country selected in the first combo box.
+     * @param event the item on the GUI that triggers the action */
+    @FXML
+    void onActionSelectLocation1(ActionEvent event) {
+        initializeLocation2();
+    }
+
+    /** This method returns the contact name associated with the loadedappointment.
+     * Appointment objects store an associated contact ID, but not the contact name,
+     * so this method returns the contact name of the loadedappoinment.
+     * It's called when the ModifyAppointment screen is opened.*/
     private String getContactFromContactId() throws SQLException {
 
         int contactId = loadedAppointment.getContactId();
@@ -177,10 +197,12 @@ public class ModifyAppointmentController implements Initializable {
         return rs.getString("Contact_Name");
     }
 
+    /** This method populates the second Location combo box.
+     * Populates the second Location combo box with the state names associated
+     * with the country displayed in the first combo box. */
     private void getLocation1FromLocation2() {
         try {
             String location2 = loadedAppointment.getLocation();
-            //System.out.println(apptLocationCmb2.getValue());
 
             String sql = "SELECT Country "
                     + "FROM first_level_divisions, countries "
@@ -189,7 +211,6 @@ public class ModifyAppointmentController implements Initializable {
 
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            //apptLocationCmb2.getItems().clear();
 
             rs.next();
             apptLocationCmb1.setValue((rs.getString("Country")));
@@ -199,6 +220,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the first Location combo box.
+     * Populates the first Location combo box with the names of all countries contained
+     * in the Country column of the countries table in the client_schedule MySQL database.
+     * It's called when the ModifyAppointment screen is opened.*/
     private void initializeLocation1() {
         try{
             String sql = "SELECT Country FROM countries";
@@ -213,6 +238,9 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the second Location combo box.
+     * Populates the second Location combo box with the state names associated
+     * with the country selected in the first combo box. */
     private void initializeLocation2() {
         try{
             String location1 = apptLocationCmb1.getValue();
@@ -235,6 +263,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Customer ID combo box.
+     * Populates the Customer ID combo box with the values of all Customer IDs contained
+     * in the Customer_ID column of the customers table in the client_schedule MySQL database.
+     * It's called when the ModifyAppointment screen is opened.*/
     private void initializeCustomerId() {
         try{
             String sql = "SELECT Customer_ID FROM customers ORDER BY Customer_ID ASC";
@@ -249,6 +281,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the User ID combo box.
+     * Populates the User ID combo box with the values of all User IDs contained
+     * in the User_ID column of the users table in the client_schedule MySQL database.
+     * It's called when the ModifyAppointment screen is opened.*/
     private void initializeUserId() {
         try{
             String sql = "SELECT User_ID FROM users ORDER BY User_ID ASC";
@@ -263,6 +299,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Contact combo box.
+     * Populates the Contact combo box with the values of all contact names contained
+     * in the Contact_Name column of the contacts table in the client_schedule MySQL database.
+     * It's called when the ModifyAppointment screen is opened.*/
     private void initializeContact() {
         try{
             String sql = "SELECT Contact_Name FROM contacts ORDER BY Contact_Name ASC";
@@ -277,6 +317,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Type combo box.
+     * Populates the Type combo box with the values of all appointment types contained
+     * in the Type column of the appointments table in the client_schedule MySQL database.
+     * It's called when the ModifyAppointment screen is opened.*/
     private void initializeType() {
         try{
             String sql = "SELECT DISTINCT Type FROM appointments ORDER BY Type ASC";
@@ -291,6 +335,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Start Time and End Time HH, MM & SS combo boxes.
+     * Populates the Start Time and End Time HH, MM & SS combo boxes with each possible
+     * two-digit hour, minute or second value.
+     * It's called when the ModifyAppointment screen is opened.*/
     private void initializeTimes() {
         apptStartTimeHHCmb.getItems().addAll(
                 "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
@@ -311,10 +359,14 @@ public class ModifyAppointmentController implements Initializable {
                 "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
     }
 
+    /** This is the initialize method.
+     * This is the first method that gets called when the scene is set to the ModifyAppointment Screen.
+     * The combo boxes are set to the values for the appointment being modified. This method calls the initialization
+     * methods to populate the Location, Customer ID, User ID, Contact,Type, and Start and End time combo boxes.
+     * @param url the location of ModifyAppointment.fxml
+     * @param resourceBundle the name of ModifyAppointment.fxml*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        //System.out.println((String.valueOf(loadedAppointment.getStart())).substring(17,19));
 
         appointmentIDTxt.setText(String.valueOf(loadedAppointment.getId()));
         apptTitleTxt.setText(String.valueOf(loadedAppointment.getTitle()));
@@ -349,7 +401,6 @@ public class ModifyAppointmentController implements Initializable {
         initializeContact();
         initializeType();
         initializeTimes();
-
     }
 }
 
