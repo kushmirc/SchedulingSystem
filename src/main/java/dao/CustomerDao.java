@@ -9,6 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class CustomersDao is used to perform a number of actions for managing customers.
+ * It contains a method for getting an observable list of all customers.  It also contains
+ * methods to insert, update and delete customers from the client_schedule MySQL database.
+ * @author Kush Mirchandani*/
 public abstract class CustomerDao {
 
     // getCustomer isn't used.

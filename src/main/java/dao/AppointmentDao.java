@@ -14,6 +14,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+/** Class AppointmentsDao is used to perform a number of actions for managing appointments.
+ * It contains methods for getting observable lists of all appointments, and for appointments
+ * starting within seven days and thirty days. It contains methods to insert, update and
+ * delete appointments from the client_schedule MySQL database. It also contains methods to
+ * return lists of appointments filtered by type, month, contact, and customer ID.
+ * @author Kush Mirchandani*/
 public abstract class AppointmentDao {
 
 // getAppointment isn't used.

@@ -10,6 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Class UserDao is used to perform a number of actions for managing users.
+ * It contains an observable list of all users created in the application, and
+ * a method for getting an observable list of all users.  It also contains
+ * a method to find a user whose name matches a string input into the application.
+ * @author Kush Mirchandani*/
 public abstract class UserDao {
 
     /** declare and initialize an observable list for all users */

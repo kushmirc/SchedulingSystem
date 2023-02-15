@@ -23,6 +23,13 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/** Class AddAppointmentController controls AddAppointment.fxml. It allows users to
+ * create appointments and input an appointment title, description, location, customer ID,
+ * user ID, contact name, type, and start and end dates and times with text fields, combo boxes,
+ * and date pickers. The combo boxes are populated when the screen is initialized.
+ * When appointments are saved, they are assigned an appointment ID by the system.
+ * This class contains a lambda expression to convert zoned date times to local date times.
+ * @author Kush Mirchandani*/
 public class AddAppointmentController implements Initializable {
 
     /** declares a stage variable */
@@ -30,8 +37,6 @@ public class AddAppointmentController implements Initializable {
 
     /** declares a scene variable */
     Parent scene;
-
-    Appointment newAppointment;
 
     @FXML
     private TextField apptTitleTxt;
@@ -82,12 +87,20 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private ComboBox<String> apptUserIDCmb;
 
+    /** This is a lambda which creates an object from the TimeConverstion functional interface.
+     * This lambda takes a ZoneDateTime object and converts it, returning a
+     * LocalDateTime object.
+     * @param ZonedUtc the ZonedDateTime object passed in.
+     * @return the LocalDateTime object returned. */
     TimeConversion ZonedToLdtUtc = ZonedUtc -> {
         LocalDateTime LdtUtc;
         LdtUtc = ZonedUtc.toLocalDateTime();
         return LdtUtc;
     };
 
+    /** Cancel button clicked.
+     * Exits the Add Appointment screen and opens the Main Screen.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionDisplayMainScreen(ActionEvent event) throws IOException {
         //get the stage from the event's source widget
@@ -97,13 +110,18 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Save button clicked.
+     * Saves the new Appointment by calling the insertAppointment method in the AppointmentDao class.
+     * Closes the Add Appointment screen and opens the Main Screen when clicked. Accepts the date and time
+     * of the appointment input by the user and converts it to UTC when saved to the client_schedule database.
+     * Displays error messages and stops running if the appointment time is outside of business hours (in eastern
+     * U.S. time) or if the appointment time overlaps with any existing appointment times.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionSaveAppointment(ActionEvent event) throws IOException, SQLException {
         ObservableList<Appointment> allAppointments = AppointmentDao.getAllAppointments();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        //String startRaw = apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue();
-        //System.out.println(startRaw);
         LocalDateTime startLdt = LocalDateTime.parse(apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue(), formatter);
         //System.out.println(startLdt);
         ZonedDateTime startZonedLocal = startLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
@@ -112,21 +130,15 @@ public class AddAppointmentController implements Initializable {
         //System.out.println(startZonedUtc);
         ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
         //System.out.println(startZoneEst);
-        //LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
-
 
         LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
         ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
-        LocalDateTime endLdtUtc = endZonedUtc.toLocalDateTime();
 
         LocalTime businessOpenTime = LocalTime.of(8,0);
-        //LocalDate businessOpenDate = startZonedEst.toLocalDate();
-        //LocalDateTime businessOpen = LocalDateTime.of(businessOpenDate,businessOpenTime);
         LocalTime businessCloseTime = LocalTime.of(22,0);
-        //LocalDate businessCloseDate = endZonedEst.toLocalDate();
-        //LocalDateTime businessClose = LocalDateTime.of(businessCloseDate,businessCloseTime);
+
         if((startZonedEst.toLocalTime().isBefore(businessOpenTime)) || (startZonedEst.toLocalTime().isAfter(businessCloseTime))|| (endZonedEst.toLocalTime().isBefore(businessOpenTime)) || (endZonedEst.toLocalTime().isAfter(businessCloseTime)))  {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Appointment");
@@ -164,11 +176,19 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Selection made in the first Location combo box.
+     * Populates the second Location combo box with the state names associated
+     * with the country selected in the first combo box.
+     * @param event the item on the GUI that triggers the action */
     @FXML
     void onActionSelectLocation1(ActionEvent event) {
         initializeLocation2();
     }
 
+    /** This method populates the first Location combo box.
+     * Populates the first Location combo box with the names of all countries contained
+     * in the Country column of the countries table in the client_schedule MySQL database.
+     * It's called when the AddAppointment screen is opened.*/
     private void initializeLocation1() {
         try{
             String sql = "SELECT Country FROM countries";
@@ -183,6 +203,9 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the second Location combo box.
+     * Populates the second Location combo box with the state names associated
+     * with the country selected in the first combo box. */
     private void initializeLocation2() {
         try{
             String location1 = apptLocationCmb1.getValue();
@@ -191,7 +214,6 @@ public class AddAppointmentController implements Initializable {
                     + "FROM first_level_divisions, countries "
                     + "WHERE first_level_divisions.Country_ID = countries.Country_ID "
                     + "AND countries.Country = \"" + location1 + "\"";
-
 
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -206,6 +228,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Customer ID combo box.
+     * Populates the Customer ID combo box with the values of all Customer IDs contained
+     * in the Customer_ID column of the customers table in the client_schedule MySQL database.
+     * It's called when the AddAppointment screen is opened.*/
     private void initializeCustomerId() {
         try{
             String sql = "SELECT Customer_ID FROM customers ORDER BY Customer_ID ASC";
@@ -220,6 +246,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the User ID combo box.
+     * Populates the User ID combo box with the values of all User IDs contained
+     * in the User_ID column of the users table in the client_schedule MySQL database.
+     * It's called when the AddAppointment screen is opened.*/
     private void initializeUserId() {
         try{
             String sql = "SELECT User_ID FROM users ORDER BY User_ID ASC";
@@ -234,6 +264,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Contact combo box.
+     * Populates the Contact combo box with the values of all contact names contained
+     * in the Contact_Name column of the contacts table in the client_schedule MySQL database.
+     * It's called when the AddAppointment screen is opened.*/
     private void initializeContact() {
         try{
             String sql = "SELECT Contact_Name FROM contacts ORDER BY Contact_Name ASC";
@@ -248,6 +282,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Type combo box.
+     * Populates the Type combo box with the values of all appointment types contained
+     * in the Type column of the appointments table in the client_schedule MySQL database.
+     * It's called when the AddAppointment screen is opened.*/
     private void initializeType() {
         try{
             String sql = "SELECT DISTINCT Type FROM appointments ORDER BY Type ASC";
@@ -262,6 +300,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /** This method populates the Start Time and End Time HH, MM & SS combo boxes.
+     * Populates the Start Time and End Time HH, MM & SS combo boxes with each possible
+     * two-digit hour, minute or second value.
+     * It's called when the AddAppointment screen is opened.*/
     private void initializeTimes() {
         apptStartTimeHHCmb.getItems().addAll(
                 "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
@@ -282,6 +324,12 @@ public class AddAppointmentController implements Initializable {
                 "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60");
     }
 
+    /** This is the initialize method.
+     * This is the first method that gets called when the scene is set to the AddAppointment Screen.
+     * Calls the initialization methods to populate the Location, Customer ID, User ID, Contact,
+     * Type, and Start and End time combo boxes.
+     * @param url the location of AddAppointment.fxml
+     * @param resourceBundle the name of AddAppointment.fxml*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -291,7 +339,5 @@ public class AddAppointmentController implements Initializable {
         initializeContact();
         initializeType();
         initializeTimes();
-
-
     }
 }
