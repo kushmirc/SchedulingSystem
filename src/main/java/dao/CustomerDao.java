@@ -11,7 +11,8 @@ import java.sql.SQLException;
 
 public abstract class CustomerDao {
 
-    public static void getCustomer() throws SQLException {
+    // getCustomer isn't used.
+    /*public static void getCustomer() throws SQLException {
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -29,9 +30,10 @@ public abstract class CustomerDao {
             System.out.print(customerPhone + " | ");
             System.out.print(customerDivisionId + "\n");
         }
-    }
+    }*/
 
-
+    /** This method gets all customer objects that have been created.
+     * @return the observable list of all customers */
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 

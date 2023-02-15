@@ -16,9 +16,8 @@ import java.time.ZonedDateTime;
 
 public abstract class AppointmentDao {
 
-
-
-    public static void getAppointment() throws SQLException {
+// getAppointment isn't used.
+    /*public static void getAppointment() throws SQLException {
         String sql = "SELECT * FROM appointments";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -44,8 +43,10 @@ public abstract class AppointmentDao {
             System.out.print(userId + " | ");
             System.out.print(contactId + "\n");
         }
-    }
+    }*/
 
+    /** This method gets all appointment objects that have been created.
+     * @return the observable list of all appointments */
     public static ObservableList<Appointment> getAllAppointments() throws SQLException {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments";
@@ -71,12 +72,12 @@ public abstract class AppointmentDao {
 
             Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
             allAppointments.add(appointmentResult);
-
-            //System.out.println(allAppointments);
         }
             return  allAppointments;
     }
 
+    /** This method gets all appointment objects that are scheduled to start within the next seven days.
+     * @return the observable list of filtered appointments */
     public static ObservableList<Appointment> getSevenDaysAppointments() throws SQLException {
         ObservableList<Appointment> sevenDaysAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE Start <= UTC_TIMESTAMP() + INTERVAL 7 DAY";
@@ -106,6 +107,8 @@ public abstract class AppointmentDao {
         return  sevenDaysAppointments;
     }
 
+    /** This method gets all appointment objects that are scheduled to start within the next thirty days.
+     * @return the observable list of filtered appointments */
     public static ObservableList<Appointment> getThirtyDaysAppointments() throws SQLException {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE Start <= UTC_TIMESTAMP() + INTERVAL 30 DAY";
@@ -131,12 +134,21 @@ public abstract class AppointmentDao {
 
             Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
             allAppointments.add(appointmentResult);
-
-            //System.out.println(allAppointments);
         }
         return  allAppointments;
     }
 
+    /** This method inserts a new appointment record into the appointments table of the client_schedule MySQL database.
+     * @param title the title of the appointment.
+     * @param description the description of the appointment.
+     * @param location the location of the appointment.
+     * @param type the type of the appointment.
+     * @param start the start date and time of the appointment.
+     * @param end the end date and time of the appointment.
+     * @param customerId the customer ID associated with the appointment.
+     * @param userId the user ID associated with the appointment.
+     * @param contactId the contact ID associated with the appointment.
+     * @return the number of rows inserted */
     public static int insertAppointment(String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) throws SQLException {
         String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -153,6 +165,18 @@ public abstract class AppointmentDao {
         return rowsAffected;
     }
 
+    /** This method updates an existing appointment record with each column value passed into it.
+     * @param appointmentId the appointment ID of the appointment.
+     * @param title the title of the appointment.
+     * @param description the description of the appointment.
+     * @param location the location of the appointment.
+     * @param type the type of the appointment.
+     * @param start the start date and time of the appointment.
+     * @param end the end date and time of the appointment.
+     * @param customerId the customer ID associated with the appointment.
+     * @param userId the user ID associated with the appointment.
+     * @param contactId the contact ID associated with the appointment.
+     * @return the number of rows updated */
     public static int updateAppointment(int appointmentId, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) throws SQLException {
         String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -170,6 +194,9 @@ public abstract class AppointmentDao {
         return rowsAffected;
     }
 
+    /** This method deletes an appointment record from the appointments table of the client_schedule MySQL database.
+     * @param appointmentId the appointment ID of the appointment.
+     * @return the number of rows deleted */
     public static int deleteAppointment(int appointmentId) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -178,8 +205,12 @@ public abstract class AppointmentDao {
         return rowsAffected;
     }
 
+    /** declare and initialize an observable list for all appointments by type */
     public static ObservableList<Appointment> allAppointmentsByType = FXCollections.observableArrayList();
 
+    /** This method gets all appointment objects whose type matches the value passed in.
+     * @param selectedType the appointment type to filter for.
+     * @return the observable list of filtered appointments */
     public static ObservableList<Appointment> appointmentsByType(String selectedType) throws SQLException {
         String sql = "SELECT * FROM appointments WHERE Type = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -209,8 +240,11 @@ public abstract class AppointmentDao {
         return allAppointmentsByType;
     }
 
+    /** declare and initialize an observable list for all appointments by month */
     public static ObservableList<Appointment> allAppointmentsByMonth = FXCollections.observableArrayList();
-
+    /** This method gets all appointment objects whose month portion of the LocalDateTime matches the value passed in.
+     * @param selectedLocalDateTime the 2-character String value (01 - 12) for the appointment month to filter for.
+     * @return the observable list of filtered appointments */
     public static ObservableList<Appointment> appointmentsByMonth(String selectedLocalDateTime) throws SQLException {
         String sql = "SELECT * FROM appointments WHERE SUBSTRING(Start,6,2) = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -241,8 +275,11 @@ public abstract class AppointmentDao {
         return allAppointmentsByMonth;
     }
 
+    /** declare and initialize an observable list for all appointments by contact */
     public static ObservableList<Appointment> allAppointmentsByContact = FXCollections.observableArrayList();
-
+    /** This method gets all appointment objects whose associated contact ID matches the value passed in.
+     * @param selectedContact the appointment contact ID to filter for.
+     * @return the observable list of filtered appointments */
     public static ObservableList<Appointment> appointmentsByContact(String selectedContact) throws SQLException {
         String sql = "SELECT * FROM appointments WHERE Contact_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -272,8 +309,11 @@ public abstract class AppointmentDao {
         return allAppointmentsByContact;
     }
 
+    /** declare and initialize an observable list for all appointments by customer ID */
     public static ObservableList<Appointment> allAppointmentsByCustomerId = FXCollections.observableArrayList();
-
+    /** This method gets all appointment objects whose associated customer ID matches the value passed in.
+     * @param selectedCustomer the appointment customer ID to filter for.
+     * @return the observable list of filtered appointments */
     public static ObservableList<Appointment> appointmentsByCustomerId(int selectedCustomer) throws SQLException {
         String sql = "SELECT appointments.* FROM appointments, customers WHERE appointments.Customer_ID = customers.Customer_ID AND customers.Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -300,7 +340,6 @@ public abstract class AppointmentDao {
             Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
              allAppointmentsByCustomerId.add(appointmentResult);
         }
-        //System.out.println(allAppointmentsByCustomerId.size());
         return allAppointmentsByCustomerId;
     }
 
