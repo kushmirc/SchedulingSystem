@@ -2,7 +2,6 @@ package mirchandani.schedulingsystem;
 
 import dao.AppointmentDao;
 import dao.UserDao;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +26,6 @@ import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -110,18 +108,17 @@ public class LoginScreenController implements Initializable {
         try{
             ResourceBundle rb = ResourceBundle.getBundle("Nat", Locale.getDefault());
 
-            if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("fr"));
-            System.out.println(rb.getString("hello") + " " + rb.getString("world"));
+            if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("fr")) {
+                System.out.println(rb.getString("hello") + " " + rb.getString("world"));
 
-            welcomeLbl.setText(rb.getString("Welcome"));
-            usernameLbl.setText(rb.getString("Username"));
-            passwordLbl.setText(rb.getString("Password"));
-            loginBtn.setText(rb.getString("Login"));
-            timeZoneLbl1.setText(rb.getString("Time_Zone"));
-            usernameExLbl.setText(rb.getString("Username_not_found"));
-            passwordExLbl.setText(rb.getString("Incorrect_password"));
-
-
+                welcomeLbl.setText(rb.getString("Welcome"));
+                usernameLbl.setText(rb.getString("Username"));
+                passwordLbl.setText(rb.getString("Password"));
+                loginBtn.setText(rb.getString("Login"));
+                timeZoneLbl1.setText(rb.getString("Time_Zone"));
+                usernameExLbl.setText(rb.getString("Username_not_found"));
+                passwordExLbl.setText(rb.getString("Incorrect_password"));
+            }
         }
         catch(Exception e){
             System.out.println("Error: " + e.getMessage());
