@@ -167,7 +167,7 @@ public class AddAppointmentController implements Initializable {
         ResultSet rs = ps.executeQuery();
         rs.next();
 
-        AppointmentDao.insertAppointment(apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), ZonedToLdtUtc.zonedToLdtUtc(startZonedUtc), ZonedToLdtUtc.zonedToLdtUtc(endZonedUtc), Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
+        AppointmentDao.insertAppointment(apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startLdt, endLdt, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
