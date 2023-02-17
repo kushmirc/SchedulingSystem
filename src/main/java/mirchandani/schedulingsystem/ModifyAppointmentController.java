@@ -1,6 +1,7 @@
 package mirchandani.schedulingsystem;
 
 import dao.AppointmentDao;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -122,6 +123,7 @@ public class ModifyAppointmentController implements Initializable {
      * @param event the item on the GUI that triggers the action */
     @FXML
     public void onActionSaveAppointment(ActionEvent event) throws IOException, SQLException {
+        ObservableList<Appointment> allAppointments = AppointmentDao.getAllAppointments();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         //System.out.println(startRaw);
@@ -149,6 +151,17 @@ public class ModifyAppointmentController implements Initializable {
             alert.setContentText("Appointments may only be scheduled during business hours (8:00am to 10:00pm EST).");
             alert.showAndWait();
             return;
+        }
+
+        for (Appointment appointment : allAppointments) {
+            if ((startLdt.isBefore(appointment.getEnd())) && (endLdt.isAfter(appointment.getStart()))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Appointment");
+                alert.setHeaderText("Overlapping Appointment");
+                alert.setContentText("There is at least one existing appointment time overlapping this one. Please adjust your desired appointment time.");
+                alert.showAndWait();
+                return;
+            }
         }
 
         String contact = apptContactCmb.getValue();
