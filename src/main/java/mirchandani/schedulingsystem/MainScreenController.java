@@ -106,6 +106,9 @@ public class MainScreenController implements Initializable {
     @FXML
     private Label appointmentsExLbl;
 
+    /** This is a lambda which creates an object from the DisplayNotification functional interface.
+     * This lambda displays a confirmation notification asking the user to confirm deletion of the selected
+     * customer. It shows another notification when the user confirms or cancels the deletion. */
     DisplayNotification deleteCustomer = () -> {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Customer");
@@ -121,6 +124,9 @@ public class MainScreenController implements Initializable {
         }
     };
 
+    /** This is a lambda which creates an object from the DisplayNotification functional interface.
+     * This lambda displays a confirmation notification asking the user to confirm deletion of the selected
+     * appointment. It shows another notification when the user confirms or cancels the deletion. */
     DisplayNotification deleteAppointment = () -> {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Appointment");
