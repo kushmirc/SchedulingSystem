@@ -92,7 +92,7 @@ public class AddAppointmentController implements Initializable {
      * LocalDateTime object.
      * @param ZonedUtc the ZonedDateTime object passed in.
      * @return the LocalDateTime object returned. */
-    TimeConversion ldtToZonedEst = localDateTime -> {
+    public static TimeConversion ldtToZonedEst = localDateTime -> {
         ZonedDateTime zonedLocal = localDateTime.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         ZonedDateTime zonedEst = zonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
         return zonedEst;
@@ -124,17 +124,17 @@ public class AddAppointmentController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startLdt = LocalDateTime.parse(apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue(), formatter);
         //System.out.println(startLdt);
-        ZonedDateTime startZonedLocal = startLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        //ZonedDateTime startZonedLocal = startLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         //System.out.println(startZonedLocal);
         //ZonedDateTime startZonedUtc = startZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
         //System.out.println(startZonedUtc);
-        ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
+        //ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
         //System.out.println(startZoneEst);
 
         LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
-        ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        //ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         //ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
-        ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
+        //ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
 
         LocalTime businessOpenTime = LocalTime.of(8,0);
         LocalTime businessCloseTime = LocalTime.of(22,0);

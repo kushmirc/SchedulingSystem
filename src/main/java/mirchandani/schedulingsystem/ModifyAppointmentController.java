@@ -129,23 +129,23 @@ public class ModifyAppointmentController implements Initializable {
         //System.out.println(startRaw);
         LocalDateTime startLdt = LocalDateTime.parse(apptStartTimeDt.getValue() + " " + apptStartTimeHHCmb.getValue() + ":" + apptStartTimeMMCmb.getValue() + ":" + apptStartTimeSSCmb.getValue(), formatter);
         //System.out.println(startLdt);
-        ZonedDateTime startZonedLocal = startLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        //ZonedDateTime startZonedLocal = startLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         //System.out.println(startZoned);
-        ZonedDateTime startZonedUtc = startZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
+        //ZonedDateTime startZonedUtc = startZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
         //System.out.println(utcstartZoned);
-        ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
-        LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
+        //ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
+        //LocalDateTime startLdtUtc = startZonedUtc.toLocalDateTime();
 
         LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
-        ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
-        ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
-        ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
-        LocalDateTime endLdtUtc = endZonedUtc.toLocalDateTime();
+        //ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        //ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
+        //ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
+        //LocalDateTime endLdtUtc = endZonedUtc.toLocalDateTime();
 
         LocalTime businessOpenTime = LocalTime.of(8,0);
         LocalTime businessCloseTime = LocalTime.of(22,0);
 
-        if((startZonedEst.toLocalTime().isBefore(businessOpenTime)) || (startZonedEst.toLocalTime().isAfter(businessCloseTime))|| (endZonedEst.toLocalTime().isBefore(businessOpenTime)) || (endZonedEst.toLocalTime().isAfter(businessCloseTime))) {
+        if((AddAppointmentController.ldtToZonedEst.ldtToZoned(startLdt).toLocalTime().isBefore(businessOpenTime)) || (AddAppointmentController.ldtToZonedEst.ldtToZoned(startLdt).toLocalTime().isAfter(businessCloseTime)) || (AddAppointmentController.ldtToZonedEst.ldtToZoned(endLdt).toLocalTime().isBefore(businessOpenTime)) || (AddAppointmentController.ldtToZonedEst.ldtToZoned(endLdt).toLocalTime().isAfter(businessCloseTime))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Appointment");
             alert.setContentText("Appointments may only be scheduled during business hours (8:00am to 10:00pm EST).");
@@ -173,7 +173,7 @@ public class ModifyAppointmentController implements Initializable {
         ResultSet rs = ps.executeQuery();
         rs.next();
 
-        AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startLdtUtc, endLdtUtc, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
+        AppointmentDao.updateAppointment(Integer.parseInt(appointmentIDTxt.getText()), apptTitleTxt.getText(), apptDescriptionTxt.getText(), apptLocationCmb2.getValue(), apptTypeCmb.getValue(), startLdt, endLdt, Integer.valueOf(apptCustomerIDCmb.getValue()), Integer.parseInt(apptUserIDCmb.getValue()), rs.getInt("Contact_ID"));
 
         //get the stage from the event's source widget
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
