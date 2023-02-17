@@ -243,8 +243,6 @@ public class MainScreenController implements Initializable {
             customersExLbl.setText("Please select a customer");
             return;}
 
-        ObservableList<Customer> allCustomers = CustomerDao.getAllCustomers();
-        //System.out.println(allCustomers);
         ObservableList<Appointment> allAppointments = AppointmentDao.getAllAppointments();
         //System.out.println(allAppointments);
         //System.out.println(customersTableView.getSelectionModel().getSelectedItem().getId());
@@ -252,32 +250,28 @@ public class MainScreenController implements Initializable {
         for (Appointment appointment : allAppointments) {
             if ((customersTableView.getSelectionModel().getSelectedItem().getId()) == appointment.getCustomerId()) {
                 //System.out.println("Match Found");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Customer");
                 alert.setHeaderText("Delete");
-                alert.setContentText("All appointments for this customer must be deleted before the customer can be deleted.");
-                alert.showAndWait();
+                alert.setContentText("All appointments for this customer must be deleted before the customer can be deleted. Proceed with deleting this customer and all associated appointments?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    for (Appointment appointment2 : allAppointments) {
+                        if ((customersTableView.getSelectionModel().getSelectedItem().getId()) == appointment2.getCustomerId()) {
+                            AppointmentDao.deleteAppointment((appointment2.getId()));
+                        }
+                    }
+                    CustomerDao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem().getId());
+                    customersExLbl.setText("Customer deleted");
+                }
+                initializeCustomers();
+                initializeAppointments();
                 return;
             }
         }
-
             deleteCustomer.confirmation();
-
-           /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Customer");
-            alert.setHeaderText("Delete");
-            alert.setContentText("Are you sure you want to delete this customer?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                CustomerDao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem().getId());
-                customersExLbl.setText("Customer deleted");
-            } else {
-                customersExLbl.setText("Customer not deleted");
-            } */
-
             initializeCustomers();
-
         }
 
 
