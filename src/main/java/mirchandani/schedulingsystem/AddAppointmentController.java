@@ -92,10 +92,10 @@ public class AddAppointmentController implements Initializable {
      * LocalDateTime object.
      * @param ZonedUtc the ZonedDateTime object passed in.
      * @return the LocalDateTime object returned. */
-    TimeConversion ZonedToLdtUtc = ZonedUtc -> {
-        LocalDateTime LdtUtc;
-        LdtUtc = ZonedUtc.toLocalDateTime();
-        return LdtUtc;
+    TimeConversion ldtToZonedEst = localDateTime -> {
+        ZonedDateTime zonedLocal = localDateTime.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        ZonedDateTime zonedEst = zonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
+        return zonedEst;
     };
 
     /** Cancel button clicked.
@@ -126,20 +126,20 @@ public class AddAppointmentController implements Initializable {
         //System.out.println(startLdt);
         ZonedDateTime startZonedLocal = startLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
         //System.out.println(startZonedLocal);
-        ZonedDateTime startZonedUtc = startZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
+        //ZonedDateTime startZonedUtc = startZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
         //System.out.println(startZonedUtc);
         ZonedDateTime startZonedEst = startZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
         //System.out.println(startZoneEst);
 
         LocalDateTime endLdt = LocalDateTime.parse(apptEndTimeDt.getValue() + " " + apptEndTimeHHCmb.getValue() + ":" + apptEndTimeMMCmb.getValue() + ":" + apptEndTimeSSCmb.getValue(), formatter);
         ZonedDateTime endZonedLocal = endLdt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
-        ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
+        //ZonedDateTime endZonedUtc = endZonedLocal.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime endZonedEst = endZonedLocal.withZoneSameInstant(ZoneId.of("America/New_York"));
 
         LocalTime businessOpenTime = LocalTime.of(8,0);
         LocalTime businessCloseTime = LocalTime.of(22,0);
 
-        if((startZonedEst.toLocalTime().isBefore(businessOpenTime)) || (startZonedEst.toLocalTime().isAfter(businessCloseTime))|| (endZonedEst.toLocalTime().isBefore(businessOpenTime)) || (endZonedEst.toLocalTime().isAfter(businessCloseTime)))  {
+        if((ldtToZonedEst.ldtToZoned(startLdt).toLocalTime().isBefore(businessOpenTime)) || (ldtToZonedEst.ldtToZoned(startLdt).toLocalTime().isAfter(businessCloseTime))|| (ldtToZonedEst.ldtToZoned(endLdt).toLocalTime().isBefore(businessOpenTime)) || (ldtToZonedEst.ldtToZoned(endLdt).toLocalTime().isAfter(businessCloseTime)))  {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Appointment");
             alert.setContentText("Appointments may only be scheduled during business hours (8:00am to 10:00pm EST).");

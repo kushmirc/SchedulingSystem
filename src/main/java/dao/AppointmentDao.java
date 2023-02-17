@@ -95,19 +95,19 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            LocalDateTime appointmentStartLdtUtc = rs.getTimestamp("Start").toLocalDateTime();
-            ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
-            LocalDateTime appointmentEndLdtUtc = rs.getTimestamp("End").toLocalDateTime();
-            ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentStartLdt = rs.getTimestamp("Start").toLocalDateTime();
+            //ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentEndLdt = rs.getTimestamp("End").toLocalDateTime();
+            //ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
 
-            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdt, appointmentEndLdt, customerId, userId, contactId);
             sevenDaysAppointments.add(appointmentResult);
         }
         return  sevenDaysAppointments;
@@ -126,19 +126,19 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            LocalDateTime appointmentStartLdtUtc = rs.getTimestamp("Start").toLocalDateTime();
-            ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
-            LocalDateTime appointmentEndLdtUtc = rs.getTimestamp("End").toLocalDateTime();
-            ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentStartLdt = rs.getTimestamp("Start").toLocalDateTime();
+            //ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentEndLdt = rs.getTimestamp("End").toLocalDateTime();
+            //ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
 
-            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdt, appointmentEndLdt, customerId, userId, contactId);
             allAppointments.add(appointmentResult);
         }
         return  allAppointments;
@@ -228,19 +228,19 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            LocalDateTime appointmentStartLdtUtc = rs.getTimestamp("Start").toLocalDateTime();
-            ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
-            LocalDateTime appointmentEndLdtUtc = rs.getTimestamp("End").toLocalDateTime();
-            ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentStartLdt = rs.getTimestamp("Start").toLocalDateTime();
+            //ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentEndLdt = rs.getTimestamp("End").toLocalDateTime();
+            //ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
 
-            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdt, appointmentEndLdt, customerId, userId, contactId);
             allAppointmentsByType.add(appointmentResult);
         }
         return allAppointmentsByType;
@@ -262,19 +262,19 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            LocalDateTime appointmentStartLdtUtc = rs.getTimestamp("Start").toLocalDateTime();
-            ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
-            LocalDateTime appointmentEndLdtUtc = rs.getTimestamp("End").toLocalDateTime();
-            ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentStartLdt = rs.getTimestamp("Start").toLocalDateTime();
+            //ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentEndLdt = rs.getTimestamp("End").toLocalDateTime();
+            //ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
 
-            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdt, appointmentEndLdt, customerId, userId, contactId);
             allAppointmentsByMonth.add(appointmentResult);
         }
         //System.out.println(allAppointmentsByCustomerId.size());
@@ -297,19 +297,19 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            LocalDateTime appointmentStartLdtUtc = rs.getTimestamp("Start").toLocalDateTime();
-            ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
-            LocalDateTime appointmentEndLdtUtc = rs.getTimestamp("End").toLocalDateTime();
-            ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentStartLdt = rs.getTimestamp("Start").toLocalDateTime();
+            //ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentEndLdt = rs.getTimestamp("End").toLocalDateTime();
+            //ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
 
-            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdt, appointmentEndLdt, customerId, userId, contactId);
             allAppointmentsByContact.add(appointmentResult);
         }
         return allAppointmentsByContact;
@@ -331,19 +331,19 @@ public abstract class AppointmentDao {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            LocalDateTime appointmentStartLdtUtc = rs.getTimestamp("Start").toLocalDateTime();
-            ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
-            LocalDateTime appointmentEndLdtUtc = rs.getTimestamp("End").toLocalDateTime();
-            ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
-            ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-            LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentStartLdt = rs.getTimestamp("Start").toLocalDateTime();
+            //ZonedDateTime appointmentStartZonedUtc = appointmentStartLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentStartZonedLocal = appointmentStartZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentStartLdtLocal = appointmentStartZonedLocal.toLocalDateTime();
+            LocalDateTime appointmentEndLdt = rs.getTimestamp("End").toLocalDateTime();
+            //ZonedDateTime appointmentEndZonedUtc = appointmentEndLdtUtc.atZone(ZoneId.of("UTC"));
+            //ZonedDateTime appointmentEndZonedLocal = appointmentEndZonedUtc.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+            //LocalDateTime appointmentEndLdtLocal = appointmentEndZonedLocal.toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
 
-            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdtLocal, appointmentEndLdtLocal, customerId, userId, contactId);
+            Appointment appointmentResult = new Appointment(appointmentId, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, appointmentStartLdt, appointmentEndLdt, customerId, userId, contactId);
              allAppointmentsByCustomerId.add(appointmentResult);
         }
         return allAppointmentsByCustomerId;

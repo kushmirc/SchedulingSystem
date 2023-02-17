@@ -10,5 +10,5 @@ public interface TimeConversion {
 
     /** This method is used to convert a ZonedDateTime value to a LocalDateTime value.
      * @param zonedDateTime the zonedDateTime value to be converted*/
-    LocalDateTime zonedToLdtUtc(ZonedDateTime zonedDateTime);
+    ZonedDateTime ldtToZoned(LocalDateTime localDateTime);
 }
