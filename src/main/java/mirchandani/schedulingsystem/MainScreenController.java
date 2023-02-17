@@ -135,7 +135,12 @@ public class MainScreenController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setTitle("Appointment");
+            alert2.setHeaderText("Delete");
+            alert2.setContentText("Appointment ID: " + appointmentsTableView.getSelectionModel().getSelectedItem().getId() + "\n" + "Type: " + appointmentsTableView.getSelectionModel().getSelectedItem().getType() + "\n" + "has been deleted");
             AppointmentDao.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getId());
+            alert2.showAndWait();
             appointmentsExLbl.setText("Appointment deleted");
         } else {
             appointmentsExLbl.setText("Appointment not deleted");
