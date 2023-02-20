@@ -153,15 +153,17 @@ public class ModifyAppointmentController implements Initializable {
             return;
         }
 
+        //System.out.println(loadedAppointment.getDescription());
         for (Appointment appointment : allAppointments) {
-            if ((startLdt.isBefore(appointment.getEnd())) && (endLdt.isAfter(appointment.getStart()))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Appointment");
-                alert.setHeaderText("Overlapping Appointment");
-                alert.setContentText("There is at least one existing appointment time overlapping this one. Please adjust your desired appointment time.");
-                alert.showAndWait();
-                return;
-            }
+            if (loadedAppointment.getId() == appointment.getId()){continue;}
+                if ((startLdt.isBefore(appointment.getEnd())) && (endLdt.isAfter(appointment.getStart()))) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Appointment");
+                    alert.setHeaderText("Overlapping Appointment");
+                    alert.setContentText("There is at least one existing appointment time overlapping this one. Please adjust your desired appointment time.");
+                    alert.showAndWait();
+                    return;
+                }
         }
 
         String contact = apptContactCmb.getValue();
